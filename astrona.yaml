@@ -1,0 +1,73 @@
+# Preparation scaffold. Technical pages stay draft until authoring and review.
+training:
+  id: ATS068
+  title: 'CGOA: Tooling'
+  description: Preparation scaffold for Tooling. Lessons and environments are planned.
+  certification:
+    name: Certified GitOps Associate
+    code: CGOA
+    provider: CNCF / Linux Foundation
+    domain: Tooling
+    weight: 14
+    competencies:
+    - Manifest Format and Packaging
+    - State Store Systems (Git and alternatives)
+    - Reconciliation Engines (ArgoCD, Flux, and alternatives)
+    - Interoperability with Notifications, Observability, and Continuous Integration Tools
+modules:
+- id: module-intro
+  title: Introduction
+  description: Planned introduction and authoring status.
+  content:
+  - type: reading
+    title: Introduction
+    path: sections/intro/README.md
+  - type: reading
+    title: Welcome To The Course
+    path: sections/intro/course-01-welcome.md
+  - type: reading
+    title: Get Your Machine Ready
+    path: sections/intro/course-02-get-your-machine-ready.md
+  - type: reading
+    title: How This Course Is Made
+    path: sections/intro/course-03-how-this-course-is-made.md
+- id: module-010
+  title: Manifest Format and Packaging
+  description: Planned coverage of this curriculum objective.
+  content:
+  - type: reading
+    title: Section Overview
+    path: sections/section-010/README.md
+  - type: reading
+    title: Manifest Format and Packaging
+    path: sections/section-010/module-01/course.md
+- id: module-020
+  title: State Store Systems (Git and alternatives)
+  description: Planned coverage of this curriculum objective.
+  content:
+  - type: reading
+    title: Section Overview
+    path: sections/section-020/README.md
+  - type: reading
+    title: State Store Systems (Git and alternatives)
+    path: sections/section-020/module-01/course.md
+- id: module-030
+  title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
+  description: Planned coverage of this curriculum objective.
+  content:
+  - type: reading
+    title: Section Overview
+    path: sections/section-030/README.md
+  - type: reading
+    title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
+    path: sections/section-030/module-01/course.md
+- id: module-040
+  title: Interoperability with Notifications, Observability, and Continuous Integration Tools
+  description: Planned coverage of this curriculum objective.
+  content:
+  - type: reading
+    title: Section Overview
+    path: sections/section-040/README.md
+  - type: reading
+    title: Interoperability with Notifications, Observability, and Continuous Integration Tools
+    path: sections/section-040/module-01/course.md
