@@ -1,0 +1,243 @@
+schema_version: 1
+kind: question_bank
+id: ats068-domain-review
+course_id: ATS068
+exam_code: CGOA
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: domain
+  id: domain-review
+  title: Tooling
+placement:
+  position: after
+  reading: sections/section-040/module-01/course-02-summary.md
+questions:
+- id: ats068-domain-review-q01
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain Helm template rendering versus Helm release lifecycle.
+  source_readings:
+  - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+  prompt: What is Helm's usual role inside Argo CD generation?
+  options:
+  - id: a
+    text: Rendering chart templates into desired manifests.
+    explanation: Argo CD then owns application reconciliation.
+  - id: b
+    text: Scraping application metrics.
+    explanation: That is observability collection.
+  - id: c
+    text: Owning every resulting Helm release lifecycle automatically.
+    explanation: That is not the standard rendering model.
+  correct_option: a
+  explanation: Argo CD then owns application reconciliation.
+- id: ats068-domain-review-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain Kustomize bases, overlays and transformations.
+  source_readings:
+  - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+  prompt: What does a Kustomize overlay do?
+  options:
+  - id: a
+    text: Automatically grant destination administrator access.
+    explanation: Authority is separate.
+  - id: b
+    text: Guarantee no rendered field can be incorrect.
+    explanation: Transformations need review.
+  - id: c
+    text: Specialize a base through declared transformations or patches.
+    explanation: It generates a resource set without editing every base copy.
+  correct_option: c
+  explanation: It generates a resource set without editing every base copy.
+- id: ats068-domain-review-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Evaluate deterministic output and secret exposure in generation.
+  source_readings:
+  - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+  prompt: Why avoid nondeterministic generated values?
+  options:
+  - id: a
+    text: Every random value is automatically a Secret.
+    explanation: Confidentiality depends on handling.
+  - id: b
+    text: They can create repeated comparison drift.
+    explanation: Successive renders should represent stable intent.
+  - id: c
+    text: They prevent all network packets.
+    explanation: That is unrelated.
+  correct_option: b
+  explanation: Successive renders should represent stable intent.
+- id: ats068-domain-review-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Assess alternative state stores against version, access and audit needs.
+  source_readings:
+  - sections/section-020/module-01/course-01-git-artifact-stores-and-version-retrieval-contracts.md
+  prompt: What is the key evaluation for a Git alternative?
+  options:
+  - id: a
+    text: Whether it supplies the required version, access, retention and audit contracts.
+    explanation: The principles concern behavior rather than a brand.
+  - id: b
+    text: Whether its logo resembles Git.
+    explanation: Branding does not establish the contract.
+  - id: c
+    text: Whether it discards every old version immediately.
+    explanation: That weakens recovery and audit.
+  correct_option: a
+  explanation: The principles concern behavior rather than a brand.
+- id: ats068-domain-review-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Distinguish mutable selectors from content identifiers.
+  source_readings:
+  - sections/section-020/module-01/course-01-git-artifact-stores-and-version-retrieval-contracts.md
+  prompt: Why record the resolved digest of a selected artifact?
+  options:
+  - id: a
+    text: A digest automatically grants target access.
+    explanation: Identity is not permission.
+  - id: b
+    text: Every tag is permanently immutable without policy.
+    explanation: Tags can move.
+  - id: c
+    text: A mutable selector can point to different content later.
+    explanation: Resolved identity connects evaluation to content.
+  correct_option: c
+  explanation: Resolved identity connects evaluation to content.
+- id: ats068-domain-review-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain retention and artifact verification in agent retrieval.
+  source_readings:
+  - sections/section-020/module-01/course-01-git-artifact-stores-and-version-retrieval-contracts.md
+  prompt: What does verifying an artifact signature establish under a trust policy?
+  options:
+  - id: a
+    text: That all persistent data has been restored.
+    explanation: Verification is not recovery.
+  - id: b
+    text: A supported provenance or integrity claim for the identified content.
+    explanation: Trust depends on the signer and verification policy.
+  - id: c
+    text: That the configuration is always operationally safe.
+    explanation: Signed content can still be unsafe.
+  correct_option: b
+  explanation: Trust depends on the signer and verification policy.
+- id: ats068-domain-review-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Compare reconciliation-engine responsibilities without assuming identical APIs.
+  source_readings:
+  - sections/section-030/module-01/course-01-argo-cd-flux-and-supported-reconciliation-responsibilities.md
+  prompt: Which comparison is useful when evaluating engines?
+  options:
+  - id: a
+    text: Source, rendering, ownership, lifecycle and feedback contracts.
+    explanation: These determine operational behavior.
+  - id: b
+    text: Only the number of logo colors.
+    explanation: Branding does not establish control behavior.
+  - id: c
+    text: A claim that all APIs are identical.
+    explanation: The resource models differ.
+  correct_option: a
+  explanation: These determine operational behavior.
+- id: ats068-domain-review-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Trace source retrieval, rendering and target management.
+  source_readings:
+  - sections/section-030/module-01/course-01-argo-cd-flux-and-supported-reconciliation-responsibilities.md
+  prompt: How can Flux separate source and reconciliation responsibilities?
+  options:
+  - id: a
+    text: Every source object is a browser card.
+    explanation: They are controller inputs.
+  - id: b
+    text: A GitRepository alone automatically implements every Helm release.
+    explanation: Other reconciliation contracts are needed.
+  - id: c
+    text: A source object provides an artifact that a reconciliation object consumes.
+    explanation: The controllers have defined component roles.
+  correct_option: c
+  explanation: The controllers have defined component roles.
+- id: ats068-domain-review-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Identify engine-specific lifecycle and policy requirements.
+  source_readings:
+  - sections/section-030/module-01/course-01-argo-cd-flux-and-supported-reconciliation-responsibilities.md
+  prompt: Should pruning behavior be assumed identical across engines?
+  options:
+  - id: a
+    text: Yes; every engine automatically backs up persistent data.
+    explanation: Pruning is not backup.
+  - id: b
+    text: No; the selected resource and policy must be reviewed.
+    explanation: Lifecycle controls differ.
+  - id: c
+    text: Yes; all omitted resources always disappear instantly.
+    explanation: There is no universal contract.
+  correct_option: b
+  explanation: Lifecycle controls differ.
+- id: ats068-domain-review-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Connect CI, state stores and reconciliation without sharing unnecessary authority.
+  source_readings:
+  - sections/section-040/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+  prompt: Which CI role fits a separated GitOps delivery path?
+  options:
+  - id: a
+    text: Build a known artifact and propose its desired-state reference.
+    explanation: The agent can own target application.
+  - id: b
+    text: Apply arbitrary target changes while leaving authoritative state inconsistent.
+    explanation: That breaks the intended control relationship.
+  - id: c
+    text: Store target administrator tokens in browser notifications.
+    explanation: That exposes authority.
+  correct_option: a
+  explanation: The agent can own target application.
+- id: ats068-domain-review-q11
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain notification and observability roles in feedback.
+  source_readings:
+  - sections/section-040/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+  prompt: What does a delivered notification prove by itself?
+  options:
+  - id: a
+    text: Every workload became healthy.
+    explanation: Channel delivery is not runtime health.
+  - id: b
+    text: Every source dependency is immutable.
+    explanation: That is a separate input contract.
+  - id: c
+    text: That the notification channel delivered its message.
+    explanation: The described operation may have failed.
+  correct_option: c
+  explanation: The described operation may have failed.
+- id: ats068-domain-review-q12
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Reason about provenance, retries and ambiguous success signals.
+  source_readings:
+  - sections/section-040/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+  prompt: Why connect status to resolved revisions and artifact identities?
+  options:
+  - id: a
+    text: They automatically authorize every receiver.
+    explanation: Identifiers are not permissions.
+  - id: b
+    text: They identify which approved inputs produced the observed outcome.
+    explanation: Names alone can be mutable.
+  - id: c
+    text: They eliminate all possible application errors.
+    explanation: Identity does not guarantee behavior.
+  correct_option: b
+  explanation: Names alone can be mutable.

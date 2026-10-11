@@ -1,0 +1,100 @@
+version: 1
+approval: CGOA requested 2026-10-11; established reading-only scope
+course:
+  id: ATS068
+  certification:
+    name: Certified GitOps Associate
+    code: CGOA
+    provider: CNCF / Linux Foundation
+    domain: Tooling
+    weight: 14
+    competencies:
+    - Manifest Format and Packaging
+    - State Store Systems (Git and alternatives)
+    - Reconciliation Engines (ArgoCD, Flux, and alternatives)
+    - Interoperability with Notifications, Observability, and Continuous Integration Tools
+defaults:
+  playground: false
+  module_lab: false
+  capstone: false
+  section_quiz: false
+  final_quiz: true
+assessment_format: YAML question banks v1, registered in assessments/index.yaml
+sections:
+- id: section-010
+  title: Manifest Format and Packaging
+  curriculum_item: Manifest Format and Packaging
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Helm And Kustomize As Argo CD Rendering Inputs
+    objectives:
+    - Explain Helm template rendering versus Helm release lifecycle.
+    - Interpret chart values, release-name and namespace interactions.
+    - Explain Kustomize bases, overlays and transformations.
+    - Evaluate deterministic output and secret exposure in generation.
+    outline:
+    - Helm And Kustomize As Argo CD Rendering Inputs
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+      adapted_from: ATS061/sections/section-040/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+- id: section-020
+  title: State Store Systems (Git and alternatives)
+  curriculum_item: State Store Systems (Git and alternatives)
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Git, Artifact Stores And Version Retrieval Contracts
+    objectives:
+    - Assess alternative state stores against version, access and audit needs.
+    - Distinguish mutable selectors from content identifiers.
+    - Explain retention and artifact verification in agent retrieval.
+    outline:
+    - Git, Artifact Stores And Version Retrieval Contracts
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-020/module-01/course-01-git-artifact-stores-and-version-retrieval-contracts.md
+      adapted_from: null
+- id: section-030
+  title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
+  curriculum_item: Reconciliation Engines (ArgoCD, Flux, and alternatives)
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Argo CD, Flux And Supported Reconciliation Responsibilities
+    objectives:
+    - Compare reconciliation-engine responsibilities without assuming identical APIs.
+    - Trace source retrieval, rendering and target management.
+    - Identify engine-specific lifecycle and policy requirements.
+    outline:
+    - Argo CD, Flux And Supported Reconciliation Responsibilities
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-030/module-01/course-01-argo-cd-flux-and-supported-reconciliation-responsibilities.md
+      adapted_from: null
+- id: section-040
+  title: Interoperability with Notifications, Observability, and Continuous Integration Tools
+  curriculum_item: Interoperability with Notifications, Observability, and Continuous Integration Tools
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Build Artifacts, Notifications And Observable Delivery Contracts
+    objectives:
+    - Connect CI, state stores and reconciliation without sharing unnecessary authority.
+    - Explain notification and observability roles in feedback.
+    - Reason about provenance, retries and ambiguous success signals.
+    outline:
+    - Build Artifacts, Notifications And Observable Delivery Contracts
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-040/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+      adapted_from: null

@@ -1,8 +1,9 @@
-# Preparation scaffold. Technical pages stay draft until authoring and review.
+# Reading-only content; YAML knowledge checks have a separate index.
 training:
   id: ATS068
   title: 'CGOA: Tooling'
-  description: Preparation scaffold for Tooling. Lessons and environments are planned.
+  description: 'Detailed reading material and reusable YAML knowledge checks for CGOA: Tooling. Technical
+    content remains draft. No labs or playgrounds.'
   certification:
     name: Certified GitOps Associate
     code: CGOA
@@ -17,7 +18,7 @@ training:
 modules:
 - id: module-intro
   title: Introduction
-  description: Planned introduction and authoring status.
+  description: Audience, reading method and review process.
   content:
   - type: reading
     title: Introduction
@@ -33,41 +34,70 @@ modules:
     path: sections/intro/course-03-how-this-course-is-made.md
 - id: module-010
   title: Manifest Format and Packaging
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Manifest Format and Packaging.
+  draft: true
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-010/README.md
   - type: reading
     title: Manifest Format and Packaging
+    path: sections/section-010/README.md
+  - type: reading
+    title: Helm And Kustomize As Argo CD Rendering Inputs
     path: sections/section-010/module-01/course.md
+  - type: reading
+    title: Helm And Kustomize As Argo CD Rendering Inputs
+    path: sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-01/course-02-summary.md
 - id: module-020
   title: State Store Systems (Git and alternatives)
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for State Store Systems (Git and alternatives).
+  draft: true
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-020/README.md
   - type: reading
     title: State Store Systems (Git and alternatives)
+    path: sections/section-020/README.md
+  - type: reading
+    title: Git, Artifact Stores And Version Retrieval Contracts
     path: sections/section-020/module-01/course.md
+  - type: reading
+    title: Git, Artifact Stores And Version Retrieval Contracts
+    path: sections/section-020/module-01/course-01-git-artifact-stores-and-version-retrieval-contracts.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-01/course-02-summary.md
 - id: module-030
   title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Reconciliation Engines (ArgoCD, Flux, and alternatives).
+  draft: true
   content:
-  - type: reading
-    title: Section Overview
-    path: sections/section-030/README.md
   - type: reading
     title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
+    path: sections/section-030/README.md
+  - type: reading
+    title: Argo CD, Flux And Supported Reconciliation Responsibilities
     path: sections/section-030/module-01/course.md
+  - type: reading
+    title: Argo CD, Flux And Supported Reconciliation Responsibilities
+    path: sections/section-030/module-01/course-01-argo-cd-flux-and-supported-reconciliation-responsibilities.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-01/course-02-summary.md
 - id: module-040
   title: Interoperability with Notifications, Observability, and Continuous Integration Tools
-  description: Planned coverage of this curriculum objective.
+  description: Developed reading and reasoning for Interoperability with Notifications, Observability,
+    and Continuous Integration Tools.
+  draft: true
   content:
   - type: reading
-    title: Section Overview
+    title: Interoperability with Notifications, Observability, and Continuous Integration Tools
     path: sections/section-040/README.md
   - type: reading
-    title: Interoperability with Notifications, Observability, and Continuous Integration Tools
+    title: Build Artifacts, Notifications And Observable Delivery Contracts
     path: sections/section-040/module-01/course.md
+  - type: reading
+    title: Build Artifacts, Notifications And Observable Delivery Contracts
+    path: sections/section-040/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-01/course-02-summary.md
