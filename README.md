@@ -1,18 +1,18 @@
-# ATS068 — CGOA: Tooling
+# Tooling (ATS068)
 
-Preparation for the **Tooling** domain of **Certified GitOps Associate (CGOA)**.
-The published domain weight is **14%**. This repository belongs to
-the [ATP013 training path](https://github.com/astrona-io/ATP013).
+Certified GitOps Associate (CGOA): Tooling, worth 14% of the official curriculum. This course belongs to ATP013.
 
-**Status:** Preparation scaffold; content authoring has not started.
+Developed reading explains mechanisms, responsible components, examples and limits. Every section has an introduction and every module closes with a summary. Reusable YAML checks contain 5–15 questions per bank. Technical content remains draft. No labs or playgrounds are included.
 
-The initial commit reserves the curriculum structure. Lessons, playgrounds,
-labs and assessments are planned and are not ready for learner use.
+## Course Outline
 
-See [CURRICULUM.md](CURRICULUM.md) for the objective map and authoring checklist,
-[astrona.yaml](astrona.yaml) for the course manifest, and
-[CLAUDE.md](CLAUDE.md) for writing and environment rules.
+| Section / module | Module | Teaching files |
+| --- | --- | --- |
+| 010 / 01 | Helm And Kustomize As Argo CD Rendering Inputs | Helm And Kustomize As Argo CD Rendering Inputs |
+| 020 / 01 | Git, Artifact Stores And Version Retrieval Contracts | Git, Artifact Stores And Version Retrieval Contracts |
+| 030 / 01 | Argo CD, Flux And Supported Reconciliation Responsibilities | Argo CD, Flux And Supported Reconciliation Responsibilities |
+| 040 / 01 | Build Artifacts, Notifications And Observable Delivery Contracts | Build Artifacts, Notifications And Observable Delivery Contracts |
 
-Curriculum source: [official CGOA page](https://training.linuxfoundation.org/certification/certified-gitops-associate-cgoa/), checked 2026-10-10.
-License: [Apache-2.0](LICENSE). Curriculum objectives retain attribution to
-The Linux Foundation and CNCF; see [CNCF curriculum licensing](https://github.com/cncf/curriculum).
+## Author Review
+
+See [curriculum coverage](CURRICULUM.md), [primary sources](SOURCES.md), [question-bank documentation](ASSESSMENTS.md) and [contribution instructions](CONTRIBUTING.md). No runtime execution is claimed.
