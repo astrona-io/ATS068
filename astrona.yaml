@@ -35,7 +35,7 @@ modules:
 - id: module-010
   title: Manifest Format and Packaging
   description: Developed reading and reasoning for Manifest Format and Packaging.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Manifest Format and Packaging
@@ -52,7 +52,7 @@ modules:
 - id: module-020
   title: State Store Systems (Git and alternatives)
   description: Developed reading and reasoning for State Store Systems (Git and alternatives).
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: State Store Systems (Git and alternatives)
@@ -69,7 +69,7 @@ modules:
 - id: module-030
   title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
   description: Developed reading and reasoning for Reconciliation Engines (ArgoCD, Flux, and alternatives).
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
@@ -87,7 +87,7 @@ modules:
   title: Interoperability with Notifications, Observability, and Continuous Integration Tools
   description: Developed reading and reasoning for Interoperability with Notifications, Observability,
     and Continuous Integration Tools.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Interoperability with Notifications, Observability, and Continuous Integration Tools
