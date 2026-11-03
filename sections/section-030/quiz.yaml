@@ -299,3 +299,147 @@ questions:
         explanation: "Wait checks readiness."
     correct_option: a
     explanation: "ChartVersion needs a version bump. Revision follows the commit."
+
+  - id: ats068-030-q13
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain what a project restricts"
+    source_readings:
+      - sections/section-030/module-03/course-01-appproject-guardrails.md
+    prompt: |-
+      Which three things does an `AppProject` limit for its Applications?
+    options:
+      - id: a
+        text: "Source repositories, destinations and resource kinds."
+        explanation: "Correct. These are the main three lists."
+      - id: b
+        text: "Container images, CPU and memory."
+        explanation: "Those are limited by Kubernetes policies, not by a project."
+      - id: c
+        text: "Node pools and zones."
+        explanation: "A project does not manage nodes."
+      - id: d
+        text: "Ingress classes and DNS names."
+        explanation: "A project does not manage those."
+    correct_option: a
+    explanation: "A project lists the allowed sources, destinations and kinds."
+
+  - id: ats068-030-q14
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Allow a namespace to be created"
+    source_readings:
+      - sections/section-030/module-03/course-01-appproject-guardrails.md
+    prompt: |-
+      An Application with `CreateNamespace=true` fails with a message that the kind `Namespace` is not permitted. What fixes it?
+    options:
+      - id: a
+        text: "Add `Namespace` to the `clusterResourceWhitelist` of the project."
+        explanation: "Correct. A namespace is a cluster-scoped kind."
+      - id: b
+        text: "Add `Namespace` to `namespaceResourceWhitelist`."
+        explanation: "A namespace is not inside a namespace."
+      - id: c
+        text: "Add the repository to `sourceRepos`."
+        explanation: "The source is not the problem."
+      - id: d
+        text: "Set `prune: true` on the Application."
+        explanation: "Pruning does not allow creating a kind."
+    correct_option: a
+    explanation: "Cluster-scoped kinds need an entry in the cluster-resource list of the project."
+
+  - id: ats068-030-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain ApplicationSet behaviour"
+    source_readings:
+      - sections/section-030/module-03/course-02-applicationset-generators-and-templates.md
+    prompt: |-
+      An element is removed from the list generator of an ApplicationSet. What happens by default?
+    options:
+      - id: a
+        text: "The matching Application is deleted, and so is the workload it deployed."
+        explanation: "Correct. The controller removes Applications that no longer have a parameter set."
+      - id: b
+        text: "Nothing changes until the ApplicationSet is deleted."
+        explanation: "The controller reconciles on every change."
+      - id: c
+        text: "The Application is paused."
+        explanation: "There is no pause behaviour."
+      - id: d
+        text: "The element is added back."
+        explanation: "The controller does not add elements."
+    correct_option: a
+    explanation: "Use `preserveResourcesOnDeletion` to keep the workload."
+
+  - id: ats068-030-q16
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a generator"
+    source_readings:
+      - sections/section-030/module-03/course-02-applicationset-generators-and-templates.md
+    prompt: |-
+      A new folder under `overlays/` in Git should produce a new Application without editing the ApplicationSet. Which generator fits?
+    options:
+      - id: a
+        text: "The Git directory generator."
+        explanation: "Correct. It makes one parameter set for each matching directory."
+      - id: b
+        text: "The list generator."
+        explanation: "A list needs an edit for every new entry."
+      - id: c
+        text: "The cluster generator."
+        explanation: "It follows registered clusters, not folders."
+      - id: d
+        text: "None; this needs app of apps."
+        explanation: "The Git directory generator does this."
+    correct_option: a
+    explanation: "The Git directory generator creates a parameter set for every directory that matches its path."
+
+  - id: ats068-030-q17
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use a ref source"
+    source_readings:
+      - sections/section-030/module-03/course-03-multiple-sources-and-ref-values.md
+    prompt: |-
+      In an Application with two sources, one has `ref: values`. How does the chart source read a file from it?
+    options:
+      - id: a
+        text: "With a value file path that starts with `$values/`."
+        explanation: "Correct. The prefix is replaced with the checkout of the ref source."
+      - id: b
+        text: "With the URL of the repository in `valueFiles`."
+        explanation: "A value file path is used, not a URL."
+      - id: c
+        text: "It cannot; a ref source is applied as manifests."
+        explanation: "A ref source is not rendered."
+      - id: d
+        text: "With `--values` on the command line."
+        explanation: "The Application has no command line."
+    correct_option: a
+    explanation: "A source with only `ref` exposes its files to the other sources."
+
+  - id: ats068-030-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Troubleshoot an ApplicationSet"
+    source_readings:
+      - sections/section-030/module-03/course-04-app-of-apps-generator-choices-and-troubleshooting.md
+    prompt: |-
+      An expected generated Application does not exist. Where is the first place to look?
+    options:
+      - id: a
+        text: "The status conditions of the ApplicationSet and the controller logs."
+        explanation: "Correct. The error from the generator or the template is reported there."
+      - id: b
+        text: "The Pod logs of the workload."
+        explanation: "The workload does not exist without the Application."
+      - id: c
+        text: "The node conditions."
+        explanation: "Nodes are not involved in creating Applications."
+      - id: d
+        text: "The Git history of the base only."
+        explanation: "The generator and the template come first."
+    correct_option: a
+    explanation: "Work from the ApplicationSet to the Application to the sync message."

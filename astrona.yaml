@@ -77,6 +77,44 @@ modules:
         title: "Summary"
         path: sections/section-010/module-01/course-04-summary.md
       - type: reading
+        title: "Plain Manifests, Jsonnet And Config Management Plugins"
+        path: sections/section-010/module-02/course.md
+      - type: reading
+        title: "Directory Sources And Source Type Detection"
+        path: sections/section-010/module-02/course-01-directory-sources-and-source-type-detection.md
+      - type: reading
+        title: "Jsonnet Programs That Generate Manifests"
+        path: sections/section-010/module-02/course-02-jsonnet-programs-that-generate-manifests.md
+      - type: reading
+        title: "Question"
+        path: sections/section-010/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Deliver Plain Manifests And Jsonnet With Argo CD Lab"
+        path: sections/section-010/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: argocd
+        task_kind: build
+        tags: [argocd, directory, recurse, exclude, jsonnet, extVars]
+        learning_goals:
+          - Create an Application for a plain-manifest directory with recurse and exclude
+          - Create an Application that renders Jsonnet with external variables
+          - Confirm what Argo CD delivered from the live objects
+        resources:
+          - name: "Argo CD directory applications"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/directory/
+          - name: "Argo CD Jsonnet applications"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/jsonnet/
+      - type: reading
+        title: "Config Management Plugins"
+        path: sections/section-010/module-02/course-03-config-management-plugins.md
+      - type: reading
+        title: "Choosing A Format And Keeping Output Reviewable"
+        path: sections/section-010/module-02/course-04-choosing-a-format-and-keeping-output-reviewable.md
+      - type: reading
+        title: "Summary"
+        path: sections/section-010/module-02/course-05-summary.md
+      - type: reading
         title: "Capstone Question"
         path: sections/section-010/capstone/labs/lab-01/question.md
       - type: lab
@@ -141,6 +179,42 @@ modules:
       - type: reading
         title: "Summary"
         path: sections/section-020/module-01/course-04-summary.md
+      - type: reading
+        title: "OCI Artifacts As A State Store"
+        path: sections/section-020/module-02/course.md
+      - type: reading
+        title: "What An OCI Artifact Is"
+        path: sections/section-020/module-02/course-01-what-an-oci-artifact-is.md
+      - type: reading
+        title: "Flux OCIRepository"
+        path: sections/section-020/module-02/course-02-flux-ocirepository.md
+      - type: reading
+        title: "Question"
+        path: sections/section-020/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Deliver Manifests From An OCI Artifact With Flux Lab"
+        path: sections/section-020/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: flux
+        task_kind: build
+        tags: [flux, oci, ocirepository, semver, kustomization]
+        learning_goals:
+          - Create an OCIRepository that follows a semantic version range in a registry
+          - Create a Kustomization that applies the stored artifact
+          - Confirm the selected revision and the delivered workload
+        resources:
+          - name: "Flux OCIRepository"
+            url: https://fluxcd.io/flux/components/source/ocirepositories/
+      - type: reading
+        title: "Publishing, Tagging And Retention"
+        path: sections/section-020/module-02/course-03-publishing-tagging-and-retention.md
+      - type: reading
+        title: "Argo CD OCI Sources And Choosing A Store"
+        path: sections/section-020/module-02/course-04-argo-cd-oci-sources-and-choosing-a-store.md
+      - type: reading
+        title: "Summary"
+        path: sections/section-020/module-02/course-05-summary.md
       - type: reading
         title: "Capstone Question"
         path: sections/section-020/capstone/labs/lab-01/question.md
@@ -241,6 +315,44 @@ modules:
         title: "Summary"
         path: sections/section-030/module-02/course-04-summary.md
       - type: reading
+        title: "Argo CD Projects, ApplicationSets And Multiple Sources"
+        path: sections/section-030/module-03/course.md
+      - type: reading
+        title: "AppProject Guardrails"
+        path: sections/section-030/module-03/course-01-appproject-guardrails.md
+      - type: reading
+        title: "ApplicationSet Generators And Templates"
+        path: sections/section-030/module-03/course-02-applicationset-generators-and-templates.md
+      - type: reading
+        title: "Question"
+        path: sections/section-030/module-03/labs/lab-01/question.md
+      - type: lab
+        title: "Restrict A Project And Generate Applications Lab"
+        path: sections/section-030/module-03/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: argocd
+        task_kind: build
+        tags: [argocd, appproject, applicationset, generator, list]
+        learning_goals:
+          - Create an AppProject that limits sources, destinations and cluster-scoped kinds
+          - Create an ApplicationSet with a list generator for two environments
+          - Confirm both generated Applications and the delivered messages
+        resources:
+          - name: "Argo CD projects"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/projects/
+          - name: "Argo CD ApplicationSet"
+            url: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/
+      - type: reading
+        title: "Multiple Sources And Values From Git"
+        path: sections/section-030/module-03/course-03-multiple-sources-and-ref-values.md
+      - type: reading
+        title: "App Of Apps, Generator Choices And Troubleshooting"
+        path: sections/section-030/module-03/course-04-app-of-apps-generator-choices-and-troubleshooting.md
+      - type: reading
+        title: "Summary"
+        path: sections/section-030/module-03/course-05-summary.md
+      - type: reading
         title: "Capstone Question"
         path: sections/section-030/capstone/labs/lab-01/question.md
       - type: lab
@@ -305,6 +417,42 @@ modules:
       - type: reading
         title: "Summary"
         path: sections/section-040/module-01/course-04-summary.md
+      - type: reading
+        title: "Image Updates: CI Commits And Automation"
+        path: sections/section-040/module-02/course.md
+      - type: reading
+        title: "CI Commits Versus Registry-Driven Updates"
+        path: sections/section-040/module-02/course-01-ci-commits-versus-registry-driven-updates.md
+      - type: reading
+        title: "Flux ImageRepository And ImagePolicy"
+        path: sections/section-040/module-02/course-02-flux-imagerepository-and-imagepolicy.md
+      - type: reading
+        title: "ImageUpdateAutomation, Setters And Commits"
+        path: sections/section-040/module-02/course-03-imageupdateautomation-setters-and-commits.md
+      - type: reading
+        title: "Question"
+        path: sections/section-040/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Update Images With Flux Image Automation Lab"
+        path: sections/section-040/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: flux
+        task_kind: build
+        tags: [flux, image-automation, imagepolicy, imageupdateautomation, setters]
+        learning_goals:
+          - Create an ImageRepository and an ImagePolicy that select a tag in a version range
+          - Create an ImageUpdateAutomation that commits the tag to Git
+          - Confirm the commit author and the rolled-out image
+        resources:
+          - name: "Flux image automation"
+            url: https://fluxcd.io/flux/guides/image-update/
+      - type: reading
+        title: "Argo CD Image Updater, Safety And Choosing A Tool"
+        path: sections/section-040/module-02/course-04-argo-cd-image-updater-safety-and-choosing-a-tool.md
+      - type: reading
+        title: "Summary"
+        path: sections/section-040/module-02/course-05-summary.md
       - type: reading
         title: "Capstone Question"
         path: sections/section-040/capstone/labs/lab-01/question.md

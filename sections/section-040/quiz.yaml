@@ -298,3 +298,147 @@ questions:
         explanation: "The registry has no Flux metrics."
     correct_option: b
     explanation: "Controller metrics show reconcile work. Object state needs kube-state-metrics."
+
+  - id: ats068-040-q13
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Compare update designs"
+    source_readings:
+      - sections/section-040/module-02/course-01-ci-commits-versus-registry-driven-updates.md
+    prompt: |-
+      What is the main security benefit of a registry-driven update compared with a CI commit?
+    options:
+      - id: a
+        text: "CI needs no write access to the deployment repository."
+        explanation: "Correct. The write credential stays in the cluster component."
+      - id: b
+        text: "There is no polling delay."
+        explanation: "A registry-driven update polls and adds delay."
+      - id: c
+        text: "The registry stores the Git history."
+        explanation: "A registry does not do this."
+      - id: d
+        text: "Images no longer need tags."
+        explanation: "Tags or digests are still needed."
+    correct_option: a
+    explanation: "The write credential for Git sits in one place instead of in every pipeline."
+
+  - id: ats068-040-q14
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Name the image objects"
+    source_readings:
+      - sections/section-040/module-02/course-02-flux-imagerepository-and-imagepolicy.md
+    prompt: |-
+      Which Flux object picks one tag from the scanned list?
+    options:
+      - id: a
+        text: "`ImagePolicy`"
+        explanation: "Correct. It applies semver, numerical or alphabetical rules."
+      - id: b
+        text: "`ImageRepository`"
+        explanation: "It scans and lists tags but does not choose one."
+      - id: c
+        text: "`ImageUpdateAutomation`"
+        explanation: "It writes the chosen tag to Git."
+      - id: d
+        text: "`Receiver`"
+        explanation: "It receives webhooks."
+    correct_option: a
+    explanation: "`ImageRepository` scans, `ImagePolicy` chooses and `ImageUpdateAutomation` writes."
+
+  - id: ats068-040-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read a setter marker"
+    source_readings:
+      - sections/section-040/module-02/course-03-imageupdateautomation-setters-and-commits.md
+    prompt: |-
+      A line ends with `# {"$imagepolicy": "flux-system:scout:tag"}`. What does the automation write on that line?
+    options:
+      - id: a
+        text: "Only the tag selected by the policy `scout`."
+        explanation: "Correct. The suffix `tag` selects the tag part."
+      - id: b
+        text: "The whole image reference."
+        explanation: "That is the result with no suffix."
+      - id: c
+        text: "The digest."
+        explanation: "The suffix for the digest is `digest`."
+      - id: d
+        text: "Nothing; the marker is only a comment."
+        explanation: "The automation reads it as a setter."
+    correct_option: a
+    explanation: "The marker names the namespace, the policy and the part of the result."
+
+  - id: ats068-040-q16
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Fix a push failure"
+    source_readings:
+      - sections/section-040/module-02/course-03-imageupdateautomation-setters-and-commits.md
+    prompt: |-
+      The automation reports a permission error on push. What is the likely cause?
+    options:
+      - id: a
+        text: "The Secret of the GitRepository allows only reads."
+        explanation: "Correct. The automation uses the credentials of the GitRepository to push."
+      - id: b
+        text: "The policy range is empty."
+        explanation: "An empty range reports no image found, not a push error."
+      - id: c
+        text: "The Deployment has no readiness probe."
+        explanation: "This does not affect the push."
+      - id: d
+        text: "The registry is slow."
+        explanation: "A slow registry does not cause a Git permission error."
+    correct_option: a
+    explanation: "The same credentials are used to clone and to push."
+
+  - id: ats068-040-q17
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a write-back method"
+    source_readings:
+      - sections/section-040/module-02/course-04-argo-cd-image-updater-safety-and-choosing-a-tool.md
+    prompt: |-
+      Which Argo CD Image Updater write-back method keeps Git as the source of truth?
+    options:
+      - id: a
+        text: "`git`"
+        explanation: "Correct. The new tag is committed and Argo CD syncs the commit."
+      - id: b
+        text: "`argocd`"
+        explanation: "This writes an override into the Application and leaves Git unchanged."
+      - id: c
+        text: "Both are the same."
+        explanation: "They store the tag in different places."
+      - id: d
+        text: "Neither; Image Updater cannot write to Git."
+        explanation: "It can write to Git."
+    correct_option: a
+    explanation: "Only the Git write-back records the tag in the repository."
+
+  - id: ats068-040-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Hold a rollback"
+    source_readings:
+      - sections/section-040/module-02/course-04-argo-cd-image-updater-safety-and-choosing-a-tool.md
+    prompt: |-
+      A bot commit is reverted, and the next automation run puts the new tag back. What holds the rollback?
+    options:
+      - id: a
+        text: "Suspend the automation or narrow the policy range first."
+        explanation: "Correct. The rule must stop selecting the bad tag."
+      - id: b
+        text: "Revert the commit again."
+        explanation: "The loop repeats."
+      - id: c
+        text: "Delete the registry."
+        explanation: "This removes every image."
+      - id: d
+        text: "Wait for the interval to pass."
+        explanation: "The next run repeats the update."
+    correct_option: a
+    explanation: "A rollback needs a decision about the rule as well as the commit."

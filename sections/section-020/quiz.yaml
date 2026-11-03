@@ -298,3 +298,147 @@ questions:
         explanation: "A private repository requires one."
     correct_option: a
     explanation: "Use read access only. Writers get their own narrow credential."
+
+  - id: ats068-020-q13
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Describe an OCI artifact"
+    source_readings:
+      - sections/section-020/module-02/course-01-what-an-oci-artifact-is.md
+    prompt: |-
+      Which parts make up an OCI artifact in a registry?
+    options:
+      - id: a
+        text: "A manifest, a config blob and one or more layers."
+        explanation: "Correct. The manifest lists the config and the layers by digest."
+      - id: b
+        text: "A branch, a tag and a commit."
+        explanation: "Those are Git concepts."
+      - id: c
+        text: "A pod, a service and a deployment."
+        explanation: "Those are Kubernetes objects."
+      - id: d
+        text: "A kubeconfig and a certificate."
+        explanation: "Those are not parts of an artifact."
+    correct_option: a
+    explanation: "An artifact is a manifest that points to a config blob and layers, each identified by a digest."
+
+  - id: ats068-020-q14
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare tag and digest"
+    source_readings:
+      - sections/section-020/module-02/course-01-what-an-oci-artifact-is.md
+    prompt: |-
+      A deployment must run exactly the content that was reviewed, even if someone pushes to the same tag later. What should it reference?
+    options:
+      - id: a
+        text: "The digest of the manifest."
+        explanation: "Correct. A digest is the hash of the content and cannot move."
+      - id: b
+        text: "The tag `latest`."
+        explanation: "A tag can be moved to other content."
+      - id: c
+        text: "The registry host name only."
+        explanation: "This does not select a version."
+      - id: d
+        text: "The tag with a different case."
+        explanation: "Case does not make a tag immutable."
+    correct_option: a
+    explanation: "A tag is a movable name. A digest identifies the content."
+
+  - id: ats068-020-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Configure an OCIRepository"
+    source_readings:
+      - sections/section-020/module-02/course-02-flux-ocirepository.md
+    prompt: |-
+      Which `OCIRepository` setting follows the newest tag inside the 1.0 line?
+    options:
+      - id: a
+        text: '`spec.ref.semver: ">=1.0.0 <1.1.0"`'
+        explanation: "Correct. A semantic version range selects the highest matching tag."
+      - id: b
+        text: "`spec.ref.digest: 1.0.x`"
+        explanation: "A digest field takes a digest, not a pattern."
+      - id: c
+        text: "`spec.interval: 1.0.x`"
+        explanation: "The interval is a duration."
+      - id: d
+        text: "`spec.insecure: 1.0.x`"
+        explanation: "This field is a boolean."
+    correct_option: a
+    explanation: "The `ref` field takes `tag`, `semver`, `semverFilter` or `digest`."
+
+  - id: ats068-020-q16
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read the revision"
+    source_readings:
+      - sections/section-020/module-02/course-02-flux-ocirepository.md
+    prompt: |-
+      The `OCIRepository` status shows `1.1.0@sha256:...` and the Kustomization shows a last applied revision of `1.0.0@sha256:...`. What does this mean?
+    options:
+      - id: a
+        text: "The Kustomization has not yet applied the new artifact."
+        explanation: "Correct. The source moved ahead and the consumer has not caught up."
+      - id: b
+        text: "The registry is down."
+        explanation: "A down registry would show a failed source, not a new revision."
+      - id: c
+        text: "The digest is wrong."
+        explanation: "Two different revisions have two different digests by design."
+      - id: d
+        text: "The tag was deleted."
+        explanation: "A deleted tag would not appear in the source."
+    correct_option: a
+    explanation: "Comparing the revision of the source with the last applied revision of the consumer shows whether a release has arrived."
+
+  - id: ats068-020-q17
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Plan retention"
+    source_readings:
+      - sections/section-020/module-02/course-03-publishing-tagging-and-retention.md
+    prompt: |-
+      A registry deletes artifacts older than 30 days. Why can this break a rollback?
+    options:
+      - id: a
+        text: "The version to roll back to may no longer exist."
+        explanation: "Correct. A rollback needs the old artifact to be fetched again."
+      - id: b
+        text: "Rollbacks use Git only."
+        explanation: "With a registry store the old artifact is the content to fetch."
+      - id: c
+        text: "Retention deletes the cluster."
+        explanation: "Retention affects only the registry."
+      - id: d
+        text: "Digests change after 30 days."
+        explanation: "A digest never changes."
+    correct_option: a
+    explanation: "Retention rules must keep every version that a rollback may need."
+
+  - id: ats068-020-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare Git and a registry"
+    source_readings:
+      - sections/section-020/module-02/course-04-argo-cd-oci-sources-and-choosing-a-store.md
+    prompt: |-
+      Which is true of a registry compared with Git as a state store?
+    options:
+      - id: a
+        text: "It has no commit history or review of its own."
+        explanation: "Correct. History and review stay in Git or in the build system."
+      - id: b
+        text: "It stores a full change history of every file."
+        explanation: "That is what Git does."
+      - id: c
+        text: "It cannot be read by Flux."
+        explanation: "Flux reads artifacts with the `OCIRepository`."
+      - id: d
+        text: "It cannot hold more than one version."
+        explanation: "A registry holds many tags and digests."
+    correct_option: a
+    explanation: "A registry gives immutable versions by digest but no history or review."

@@ -250,3 +250,147 @@ questions:
         explanation: "No difference is the expected result after a good sync."
     correct_option: c
     explanation: "A successful render says nothing about runtime health."
+
+  - id: ats068-010-q11
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain source type detection"
+    source_readings:
+      - sections/section-010/module-02/course-01-directory-sources-and-source-type-detection.md
+    prompt: |-
+      A repository path holds a `kustomization.yaml` and also plain YAML files. An Application points at it with no source options. How does Argo CD treat the path?
+    options:
+      - id: a
+        text: "As a plain directory, applying every YAML file."
+        explanation: "Argo CD checks for a chart and a kustomization before it falls back to a directory."
+      - id: b
+        text: "As a Kustomize application, because the detection finds the kustomization file."
+        explanation: "Correct. The detection order is Helm, then Kustomize, then directory."
+      - id: c
+        text: "As a Helm chart, because Helm is always tried first."
+        explanation: "Helm is tried first, but it needs a `Chart.yaml`, which is absent here."
+      - id: d
+        text: "It refuses the path because two formats are present."
+        explanation: "Argo CD does not refuse. It picks the first match in its order."
+    correct_option: b
+    explanation: "Argo CD detects Helm from `Chart.yaml`, then Kustomize from a kustomization file, and otherwise treats the path as a directory."
+
+  - id: ats068-010-q12
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use directory options"
+    source_readings:
+      - sections/section-010/module-02/course-01-directory-sources-and-source-type-detection.md
+    prompt: |-
+      A directory source has `drafts/draft.yaml` that must not be applied, and manifests in subfolders that must be applied. Which options achieve this?
+    options:
+      - id: a
+        text: "`recurse: true` and `exclude: drafts/*`"
+        explanation: "Correct. Recursion reads subfolders and the exclude pattern skips the drafts."
+      - id: b
+        text: "`include: drafts/*`"
+        explanation: "Include selects only matching files, so this applies the drafts and nothing else."
+      - id: c
+        text: "`recurse: false` and `exclude: drafts/*`"
+        explanation: "Without recursion the subfolders are not read."
+      - id: d
+        text: "`exclude: *` and `recurse: true`"
+        explanation: "This excludes every file."
+    correct_option: a
+    explanation: "The directory options are `recurse`, `include` and `exclude`; recursion is off by default."
+
+  - id: ats068-010-q13
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Pass variables to Jsonnet"
+    source_readings:
+      - sections/section-010/module-02/course-02-jsonnet-programs-that-generate-manifests.md
+    prompt: |-
+      A Jsonnet program reads `std.extVar("replicas")`. Where does the Application set the value?
+    options:
+      - id: a
+        text: "In `spec.source.directory.jsonnet.extVars`."
+        explanation: "Correct. External variables are listed under the Jsonnet settings of the directory source."
+      - id: b
+        text: "In `spec.source.helm.values`."
+        explanation: "That field belongs to Helm sources."
+      - id: c
+        text: "In a ConfigMap named `jsonnet-vars`."
+        explanation: "Argo CD does not read such a ConfigMap."
+      - id: d
+        text: "In the `argocd-cm` key `replicas`."
+        explanation: "That key is not used for Jsonnet variables."
+    correct_option: a
+    explanation: "External variables are set with `extVars`, and top-level arguments are set with `tlas`."
+
+  - id: ats068-010-q14
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe a config management plugin"
+    source_readings:
+      - sections/section-010/module-02/course-03-config-management-plugins.md
+    prompt: |-
+      How does a config management plugin render manifests in current Argo CD?
+    options:
+      - id: a
+        text: "It runs as a sidecar of the repo-server and prints manifests to standard output."
+        explanation: "Correct. The sidecar runs the plugin commands and returns the output as manifests."
+      - id: b
+        text: "It runs inside the application controller after the sync."
+        explanation: "Rendering happens in the repo-server, before the sync."
+      - id: c
+        text: "It replaces the Kubernetes API server."
+        explanation: "A plugin has no role in the API server."
+      - id: d
+        text: "It is a Helm hook that runs in the destination namespace."
+        explanation: "Plugins are not Helm hooks."
+    correct_option: a
+    explanation: "Plugins run as sidecar containers of the repo-server and their commands print the manifests to standard output."
+
+  - id: ats068-010-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Keep generated output reviewable"
+    source_readings:
+      - sections/section-010/module-02/course-04-choosing-a-format-and-keeping-output-reviewable.md
+    prompt: |-
+      A team generates manifests with Jsonnet and worries that reviewers cannot see what will change. Which practice helps most?
+    options:
+      - id: a
+        text: "Store the rendered output in a reviewed branch and let Argo CD apply that."
+        explanation: "Correct. This is the rendered-manifests pattern: the output is a diff that people can read."
+      - id: b
+        text: "Turn off diffing in Argo CD."
+        explanation: "This removes visibility."
+      - id: c
+        text: "Add more variables to the program."
+        explanation: "More variables make the output harder to predict."
+      - id: d
+        text: "Move the program into the cluster."
+        explanation: "This does not help a reviewer."
+    correct_option: a
+    explanation: "Committing the rendered output turns a program change into a reviewable manifest diff."
+
+  - id: ats068-010-q16
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Choose a format"
+    source_readings:
+      - sections/section-010/module-02/course-04-choosing-a-format-and-keeping-output-reviewable.md
+    prompt: |-
+      A service needs three plain objects with no variation between environments. Which format is the simplest fit?
+    options:
+      - id: a
+        text: "Plain manifests in a directory."
+        explanation: "Correct. No templating is needed."
+      - id: b
+        text: "A Jsonnet library with top-level arguments."
+        explanation: "This adds a program for no benefit."
+      - id: c
+        text: "A config management plugin."
+        explanation: "A plugin adds a sidecar for no benefit."
+      - id: d
+        text: "A Helm chart with a values file for each environment."
+        explanation: "Helm adds templating that is not needed here."
+    correct_option: a
+    explanation: "Choose the simplest format that expresses the variation you have."

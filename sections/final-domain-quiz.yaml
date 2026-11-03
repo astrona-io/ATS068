@@ -298,3 +298,195 @@ questions:
         explanation: "This does not follow."
     correct_option: b
     explanation: "Quiet is not healthy."
+
+  - id: ats068-final-q13
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Keep generated output reviewable"
+    source_readings:
+      - sections/section-010/module-02/course-04-choosing-a-format-and-keeping-output-reviewable.md
+    prompt: |-
+      A team generates manifests with Jsonnet and worries that reviewers cannot see what will change. Which practice helps most?
+    options:
+      - id: a
+        text: "Store the rendered output in a reviewed branch and let Argo CD apply that."
+        explanation: "Correct. This is the rendered-manifests pattern: the output is a diff that people can read."
+      - id: b
+        text: "Turn off diffing in Argo CD."
+        explanation: "This removes visibility."
+      - id: c
+        text: "Add more variables to the program."
+        explanation: "More variables make the output harder to predict."
+      - id: d
+        text: "Move the program into the cluster."
+        explanation: "This does not help a reviewer."
+    correct_option: a
+    explanation: "Committing the rendered output turns a program change into a reviewable manifest diff."
+
+  - id: ats068-final-q14
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Choose a format"
+    source_readings:
+      - sections/section-010/module-02/course-04-choosing-a-format-and-keeping-output-reviewable.md
+    prompt: |-
+      A service needs three plain objects with no variation between environments. Which format is the simplest fit?
+    options:
+      - id: a
+        text: "Plain manifests in a directory."
+        explanation: "Correct. No templating is needed."
+      - id: b
+        text: "A Jsonnet library with top-level arguments."
+        explanation: "This adds a program for no benefit."
+      - id: c
+        text: "A config management plugin."
+        explanation: "A plugin adds a sidecar for no benefit."
+      - id: d
+        text: "A Helm chart with a values file for each environment."
+        explanation: "Helm adds templating that is not needed here."
+    correct_option: a
+    explanation: "Choose the simplest format that expresses the variation you have."
+
+  - id: ats068-final-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Plan retention"
+    source_readings:
+      - sections/section-020/module-02/course-03-publishing-tagging-and-retention.md
+    prompt: |-
+      A registry deletes artifacts older than 30 days. Why can this break a rollback?
+    options:
+      - id: a
+        text: "The version to roll back to may no longer exist."
+        explanation: "Correct. A rollback needs the old artifact to be fetched again."
+      - id: b
+        text: "Rollbacks use Git only."
+        explanation: "With a registry store the old artifact is the content to fetch."
+      - id: c
+        text: "Retention deletes the cluster."
+        explanation: "Retention affects only the registry."
+      - id: d
+        text: "Digests change after 30 days."
+        explanation: "A digest never changes."
+    correct_option: a
+    explanation: "Retention rules must keep every version that a rollback may need."
+
+  - id: ats068-final-q16
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare Git and a registry"
+    source_readings:
+      - sections/section-020/module-02/course-04-argo-cd-oci-sources-and-choosing-a-store.md
+    prompt: |-
+      Which is true of a registry compared with Git as a state store?
+    options:
+      - id: a
+        text: "It has no commit history or review of its own."
+        explanation: "Correct. History and review stay in Git or in the build system."
+      - id: b
+        text: "It stores a full change history of every file."
+        explanation: "That is what Git does."
+      - id: c
+        text: "It cannot be read by Flux."
+        explanation: "Flux reads artifacts with the `OCIRepository`."
+      - id: d
+        text: "It cannot hold more than one version."
+        explanation: "A registry holds many tags and digests."
+    correct_option: a
+    explanation: "A registry gives immutable versions by digest but no history or review."
+
+  - id: ats068-final-q17
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use a ref source"
+    source_readings:
+      - sections/section-030/module-03/course-03-multiple-sources-and-ref-values.md
+    prompt: |-
+      In an Application with two sources, one has `ref: values`. How does the chart source read a file from it?
+    options:
+      - id: a
+        text: "With a value file path that starts with `$values/`."
+        explanation: "Correct. The prefix is replaced with the checkout of the ref source."
+      - id: b
+        text: "With the URL of the repository in `valueFiles`."
+        explanation: "A value file path is used, not a URL."
+      - id: c
+        text: "It cannot; a ref source is applied as manifests."
+        explanation: "A ref source is not rendered."
+      - id: d
+        text: "With `--values` on the command line."
+        explanation: "The Application has no command line."
+    correct_option: a
+    explanation: "A source with only `ref` exposes its files to the other sources."
+
+  - id: ats068-final-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Troubleshoot an ApplicationSet"
+    source_readings:
+      - sections/section-030/module-03/course-04-app-of-apps-generator-choices-and-troubleshooting.md
+    prompt: |-
+      An expected generated Application does not exist. Where is the first place to look?
+    options:
+      - id: a
+        text: "The status conditions of the ApplicationSet and the controller logs."
+        explanation: "Correct. The error from the generator or the template is reported there."
+      - id: b
+        text: "The Pod logs of the workload."
+        explanation: "The workload does not exist without the Application."
+      - id: c
+        text: "The node conditions."
+        explanation: "Nodes are not involved in creating Applications."
+      - id: d
+        text: "The Git history of the base only."
+        explanation: "The generator and the template come first."
+    correct_option: a
+    explanation: "Work from the ApplicationSet to the Application to the sync message."
+
+  - id: ats068-final-q19
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a write-back method"
+    source_readings:
+      - sections/section-040/module-02/course-04-argo-cd-image-updater-safety-and-choosing-a-tool.md
+    prompt: |-
+      Which Argo CD Image Updater write-back method keeps Git as the source of truth?
+    options:
+      - id: a
+        text: "`git`"
+        explanation: "Correct. The new tag is committed and Argo CD syncs the commit."
+      - id: b
+        text: "`argocd`"
+        explanation: "This writes an override into the Application and leaves Git unchanged."
+      - id: c
+        text: "Both are the same."
+        explanation: "They store the tag in different places."
+      - id: d
+        text: "Neither; Image Updater cannot write to Git."
+        explanation: "It can write to Git."
+    correct_option: a
+    explanation: "Only the Git write-back records the tag in the repository."
+
+  - id: ats068-final-q20
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Hold a rollback"
+    source_readings:
+      - sections/section-040/module-02/course-04-argo-cd-image-updater-safety-and-choosing-a-tool.md
+    prompt: |-
+      A bot commit is reverted, and the next automation run puts the new tag back. What holds the rollback?
+    options:
+      - id: a
+        text: "Suspend the automation or narrow the policy range first."
+        explanation: "Correct. The rule must stop selecting the bad tag."
+      - id: b
+        text: "Revert the commit again."
+        explanation: "The loop repeats."
+      - id: c
+        text: "Delete the registry."
+        explanation: "This removes every image."
+      - id: d
+        text: "Wait for the interval to pass."
+        explanation: "The next run repeats the update."
+    correct_option: a
+    explanation: "A rollback needs a decision about the rule as well as the commit."

@@ -50,6 +50,29 @@ sections:
       adapted_from: 
     - reading: sections/section-010/module-01/course-03-repeatable-rendering-secrets-and-errors.md
       adapted_from: 
+  - id: module-02
+    title: Plain Manifests, Jsonnet And Config Management Plugins
+    objectives:
+    - Explain source type detection and the directory options recurse, include and exclude.
+    - Pass external variables and top-level arguments to Jsonnet.
+    - Describe how a config management plugin sidecar renders manifests.
+    - Choose a format and keep generated output reviewable.
+    outline:
+    - Directory Sources And Source Type Detection
+    - Jsonnet Programs That Generate Manifests
+    - Config Management Plugins
+    - Choosing A Format And Keeping Output Reviewable
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-010/module-02/course-01-directory-sources-and-source-type-detection.md
+      adapted_from: 
+    - reading: sections/section-010/module-02/course-02-jsonnet-programs-that-generate-manifests.md
+      adapted_from: 
+    - reading: sections/section-010/module-02/course-03-config-management-plugins.md
+      adapted_from: 
+    - reading: sections/section-010/module-02/course-04-choosing-a-format-and-keeping-output-reviewable.md
+      adapted_from: 
 - id: section-020
   title: State Store Systems (Git and alternatives)
   curriculum_item: State Store Systems (Git and alternatives)
@@ -74,6 +97,29 @@ sections:
     - reading: sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
       adapted_from: 
     - reading: sections/section-020/module-01/course-03-alternative-stores-access-audit-and-recovery.md
+      adapted_from: 
+  - id: module-02
+    title: OCI Artifacts As A State Store
+    objectives:
+    - Explain the parts of an OCI artifact and the difference between a tag and a digest.
+    - Configure a Flux OCIRepository with a tag, a semantic version range or a digest.
+    - Describe publishing, tagging and retention of artifacts.
+    - Compare Git and a registry as a state store.
+    outline:
+    - What An OCI Artifact Is
+    - Flux OCIRepository
+    - Publishing, Tagging And Retention
+    - Argo CD OCI Sources And Choosing A Store
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-020/module-02/course-01-what-an-oci-artifact-is.md
+      adapted_from: 
+    - reading: sections/section-020/module-02/course-02-flux-ocirepository.md
+      adapted_from: 
+    - reading: sections/section-020/module-02/course-03-publishing-tagging-and-retention.md
+      adapted_from: 
+    - reading: sections/section-020/module-02/course-04-argo-cd-oci-sources-and-choosing-a-store.md
       adapted_from: 
 - id: section-030
   title: Reconciliation Engines (ArgoCD, Flux, and alternatives)
@@ -119,6 +165,29 @@ sections:
       adapted_from: 
     - reading: sections/section-030/module-02/course-03-comparing-argo-cd-and-flux-pause-drift-and-prune.md
       adapted_from: 
+  - id: module-03
+    title: Argo CD Projects, ApplicationSets And Multiple Sources
+    objectives:
+    - Describe what an AppProject restricts and where Argo CD checks it.
+    - Explain how an ApplicationSet turns a generator and a template into Applications.
+    - Combine a chart and values from Git with multiple sources and ref.
+    - Choose between app of apps and an ApplicationSet and troubleshoot generated Applications.
+    outline:
+    - AppProject Guardrails
+    - ApplicationSet Generators And Templates
+    - Multiple Sources And Values From Git
+    - App Of Apps, Generator Choices And Troubleshooting
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-030/module-03/course-01-appproject-guardrails.md
+      adapted_from: 
+    - reading: sections/section-030/module-03/course-02-applicationset-generators-and-templates.md
+      adapted_from: 
+    - reading: sections/section-030/module-03/course-03-multiple-sources-and-ref-values.md
+      adapted_from: 
+    - reading: sections/section-030/module-03/course-04-app-of-apps-generator-choices-and-troubleshooting.md
+      adapted_from: 
 - id: section-040
   title: Interoperability with Notifications, Observability, and Continuous Integration
     Tools
@@ -145,4 +214,27 @@ sections:
     - reading: sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
       adapted_from: 
     - reading: sections/section-040/module-01/course-03-observing-delivery-status-events-and-metrics.md
+      adapted_from: 
+  - id: module-02
+    title: 'Image Updates: CI Commits And Automation'
+    objectives:
+    - Compare CI-driven and registry-driven image updates.
+    - Configure a Flux ImageRepository, ImagePolicy and ImageUpdateAutomation.
+    - Describe Argo CD Image Updater and its write-back methods.
+    - Apply safe practices for automatic updates and rollbacks.
+    outline:
+    - CI Commits Versus Registry-Driven Updates
+    - Flux ImageRepository And ImagePolicy
+    - ImageUpdateAutomation, Setters And Commits
+    - Argo CD Image Updater, Safety And Choosing A Tool
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-040/module-02/course-01-ci-commits-versus-registry-driven-updates.md
+      adapted_from: 
+    - reading: sections/section-040/module-02/course-02-flux-imagerepository-and-imagepolicy.md
+      adapted_from: 
+    - reading: sections/section-040/module-02/course-03-imageupdateautomation-setters-and-commits.md
+      adapted_from: 
+    - reading: sections/section-040/module-02/course-04-argo-cd-image-updater-safety-and-choosing-a-tool.md
       adapted_from: 
