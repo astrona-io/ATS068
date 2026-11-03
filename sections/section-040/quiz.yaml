@@ -1,0 +1,300 @@
+# Knowledge check for section-040. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats068-040
+course_id: ATS068
+exam_code: CGOA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-040
+  title: "Interoperability with Notifications, Observability, and Continuous Integration Tools"
+questions:
+  - id: ats068-040-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "State the role of CI in a GitOps design"
+    source_readings:
+      - sections/section-040/module-01/course-01-build-artifacts-and-the-ci-to-engine-contract.md
+    prompt: |-
+      Which statement describes the role of CI in a GitOps delivery?
+    options:
+      - id: a
+        text: "CI builds and checks the artifact, and the desired state in Git names it."
+        explanation: "Correct. The engine applies what Git says."
+      - id: b
+        text: "CI applies the manifests to the cluster directly."
+        explanation: "The engine applies manifests, not CI."
+      - id: c
+        text: "CI replaces the Git repository."
+        explanation: "The desired state stays in Git."
+      - id: d
+        text: "CI runs the reconcile loop."
+        explanation: "The engine runs the loop."
+    correct_option: a
+    explanation: "CI produces the artifact. Git holds the desired state. The engine applies it."
+
+  - id: ats068-040-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare the two handover designs"
+    source_readings:
+      - sections/section-040/module-01/course-01-build-artifacts-and-the-ci-to-engine-contract.md
+    prompt: |-
+      Image automation in Flux finds a new tag in the registry. What does it do next?
+    options:
+      - id: a
+        text: "It changes the Deployment in the cluster directly."
+        explanation: "The change goes through Git."
+      - id: b
+        text: "It commits the new tag to Git, so Git stays the place where the desired state changes."
+        explanation: "Correct."
+      - id: c
+        text: "It restarts the Pods."
+        explanation: "It does not restart Pods."
+      - id: d
+        text: "It deletes the old tag."
+        explanation: "It does not change the registry."
+    correct_option: b
+    explanation: "Image automation writes to Git. The engine still reads from Git."
+
+  - id: ats068-040-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose the identifier that carries provenance"
+    source_readings:
+      - sections/section-040/module-01/course-01-build-artifacts-and-the-ci-to-engine-contract.md
+    prompt: |-
+      Which reference in the desired state lets you prove that the running image is the one CI built?
+    options:
+      - id: a
+        text: "The tag `latest`."
+        explanation: "A tag can be moved."
+      - id: b
+        text: "The tag `stable`."
+        explanation: "A tag can be moved."
+      - id: c
+        text: "The image digest."
+        explanation: "Correct. A digest identifies content."
+      - id: d
+        text: "The name of the Deployment."
+        explanation: "A name does not identify content."
+    correct_option: c
+    explanation: "A digest is a hash of the content. A tag is only a name."
+
+  - id: ats068-040-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Judge a CI success signal"
+    source_readings:
+      - sections/section-040/module-01/course-01-build-artifacts-and-the-ci-to-engine-contract.md
+    prompt: |-
+      A CI job pushes a commit to the deployment repository and reports 'deployed'. What is wrong?
+    options:
+      - id: a
+        text: "Nothing, a push is a deployment."
+        explanation: "A push only changes the desired state."
+      - id: b
+        text: "The job reports something it cannot know, because the engine may not have applied the commit or the workload may not be ready."
+        explanation: "Correct."
+      - id: c
+        text: "CI is not allowed to push."
+        explanation: "CI may push to a narrow path."
+      - id: d
+        text: "The engine ignores pushes."
+        explanation: "The engine reads Git at its interval or on a webhook."
+    correct_option: b
+    explanation: "Read the applied revision and the workload to know that a release is live."
+
+  - id: ats068-040-q05
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the object that sends events to a destination"
+    source_readings:
+      - sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
+    prompt: |-
+      Which Flux notification object describes the destination of outbound notifications, such as an HTTP address?
+    options:
+      - id: a
+        text: "Receiver."
+        explanation: "A Receiver accepts inbound webhooks."
+      - id: b
+        text: "Alert."
+        explanation: "An Alert selects events and refers to a Provider."
+      - id: c
+        text: "Provider."
+        explanation: "Correct."
+      - id: d
+        text: "GitRepository."
+        explanation: "A GitRepository is a source."
+    correct_option: c
+    explanation: "A Provider is the destination. An Alert selects events for it."
+
+  - id: ats068-040-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict event filtering"
+    source_readings:
+      - sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
+    prompt: |-
+      An Alert has `eventSeverity: error`. Which events does it send?
+    options:
+      - id: a
+        text: "Only error events."
+        explanation: "Correct. Info events are not sent."
+      - id: b
+        text: "All events."
+        explanation: "All events are sent when the severity is info or not set."
+      - id: c
+        text: "No events."
+        explanation: "Error events are sent."
+      - id: d
+        text: "Only events of the kind GitRepository."
+        explanation: "The kinds come from `eventSources`."
+    correct_option: a
+    explanation: "The severity is a minimum. Info, the default, sends everything."
+
+  - id: ats068-040-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain what a Receiver does"
+    source_readings:
+      - sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
+    prompt: |-
+      A call reaches the path in `status.webhookPath` of a generic Receiver. What happens?
+    options:
+      - id: a
+        text: "The Receiver applies the manifests in the request body."
+        explanation: "The Receiver does not take content."
+      - id: b
+        text: "The Receiver asks the listed objects to reconcile, and the source then reads Git itself."
+        explanation: "Correct. The webhook only triggers."
+      - id: c
+        text: "The Receiver commits to Git."
+        explanation: "It does not write to Git."
+      - id: d
+        text: "Nothing, until the interval has passed."
+        explanation: "The call triggers a reconcile at once."
+    correct_option: b
+    explanation: "A webhook carries a trigger, not a change."
+
+  - id: ats068-040-q08
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose a protection for a Receiver"
+    source_readings:
+      - sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
+    prompt: |-
+      A generic Receiver is reachable from the internet. Which change most improves its protection?
+    options:
+      - id: a
+        text: "Use type `generic-hmac`, so the caller must sign the body with the token."
+        explanation: "Correct. Bad signatures are refused."
+      - id: b
+        text: "Use a longer interval on the source."
+        explanation: "This does not authenticate callers."
+      - id: c
+        text: "Add an Alert for the Receiver."
+        explanation: "An Alert sends events, it does not authenticate."
+      - id: d
+        text: "Rename the Receiver."
+        explanation: "The path depends on the token, the name and the namespace, and is not a credential."
+    correct_option: a
+    explanation: "Use a signed Receiver and keep the token secret."
+
+  - id: ats068-040-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Name the Argo CD subscription mechanism"
+    source_readings:
+      - sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
+    prompt: |-
+      How does an Argo CD Application subscribe to a notification?
+    options:
+      - id: a
+        text: "With a Receiver object."
+        explanation: "Argo CD has no Receiver object."
+      - id: b
+        text: "With an annotation of the form `notifications.argoproj.io/subscribe.<trigger>.<service>`."
+        explanation: "Correct. Recipients are separated by semicolons."
+      - id: c
+        text: "With a field `spec.alert`."
+        explanation: "This field does not exist."
+      - id: d
+        text: "With a Provider object."
+        explanation: "Services are set in `argocd-notifications-cm`."
+    correct_option: b
+    explanation: "A subscribe annotation names the trigger and the service."
+
+  - id: ats068-040-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read a failed Kustomization"
+    source_readings:
+      - sections/section-040/module-01/course-03-observing-delivery-status-events-and-metrics.md
+    prompt: |-
+      A Kustomization shows `Ready: False`, and `lastAttemptedRevision` differs from `lastAppliedRevision`. What does this say?
+    options:
+      - id: a
+        text: "The newest commit failed and the cluster still holds the older applied revision."
+        explanation: "Correct."
+      - id: b
+        text: "The source has no artifact."
+        explanation: "The attempted revision shows that it has one."
+      - id: c
+        text: "The Kustomization is suspended."
+        explanation: "A suspended object does not attempt."
+      - id: d
+        text: "The cluster runs the newest commit."
+        explanation: "The newest commit was not applied."
+    correct_option: a
+    explanation: "Compare attempted and applied revisions."
+
+  - id: ats068-040-q11
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Spot an ambiguous success signal"
+    source_readings:
+      - sections/section-040/module-01/course-03-observing-delivery-status-events-and-metrics.md
+    prompt: |-
+      An Application is `Synced` and `Degraded`. Which reading is right?
+    options:
+      - id: a
+        text: "The cluster matches Git, but the workload does not work."
+        explanation: "Correct. Sync and health are separate."
+      - id: b
+        text: "The cluster differs from Git."
+        explanation: "That would be OutOfSync."
+      - id: c
+        text: "The repository is unreachable."
+        explanation: "This shows as an error condition."
+      - id: d
+        text: "The sync is still running."
+        explanation: "A running sync shows in the operation state."
+    correct_option: a
+    explanation: "A matching Deployment can still crash loop."
+
+  - id: ats068-040-q12
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose the source of object state metrics in Flux"
+    source_readings:
+      - sections/section-040/module-01/course-03-observing-delivery-status-events-and-metrics.md
+    prompt: |-
+      Where does the metric `gotk_resource_info`, with the labels `ready` and `suspended`, come from?
+    options:
+      - id: a
+        text: "From each Flux controller on port 8080."
+        explanation: "The controllers export reconcile metrics, not the object state."
+      - id: b
+        text: "From kube-state-metrics with a custom resource configuration."
+        explanation: "Correct."
+      - id: c
+        text: "From the Git server."
+        explanation: "Git has no Flux metrics."
+      - id: d
+        text: "From the registry."
+        explanation: "The registry has no Flux metrics."
+    correct_option: b
+    explanation: "Controller metrics show reconcile work. Object state needs kube-state-metrics."

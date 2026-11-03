@@ -1,0 +1,252 @@
+# Knowledge check for section-010. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats068-010
+course_id: ATS068
+exam_code: CGOA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-010
+  title: "Manifest Format and Packaging"
+questions:
+  - id: ats068-010-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain how Argo CD uses Helm"
+    source_readings:
+      - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+    prompt: |-
+      A team deploys a Helm chart with an Argo CD Application. An engineer runs `helm list` in the destination namespace and sees no release. What explains this?
+    options:
+      - id: a
+        text: "The Application failed to sync."
+        explanation: "A failed sync does not change how Helm is used; the objects can exist without a release record."
+      - id: b
+        text: "Argo CD uses Helm only to render the manifests and applies them itself, so no release record is created."
+        explanation: "Correct. The repo-server renders the chart like `helm template`, and the application controller applies and tracks the objects."
+      - id: c
+        text: "Helm stores releases only in the `default` namespace."
+        explanation: "Helm stores release records in the namespace of the release, and none exists here for another reason."
+      - id: d
+        text: "The chart has no values file."
+        explanation: "A values file does not decide whether a release record exists."
+    correct_option: b
+    explanation: "Argo CD renders the chart with the equivalent of `helm template` and tracks the objects with annotations."
+
+  - id: ats068-010-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Identify where the release name comes from"
+    source_readings:
+      - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+    prompt: |-
+      An Application renders the chart in `chart/` and sets no `helm.releaseName`. The Application is named `scout-chart`. What value does `.Release.Name` have?
+    options:
+      - id: a
+        text: "`scout-chart`, the name of the Application."
+        explanation: "Correct. When `releaseName` is empty, Argo CD uses the Application name."
+      - id: b
+        text: "`default`."
+        explanation: "Argo CD does not use `default` as a release name."
+      - id: c
+        text: "The name of the Git repository."
+        explanation: "The repository name is not used."
+      - id: d
+        text: "The name in `Chart.yaml`."
+        explanation: "The chart name is a separate field from the release name."
+    correct_option: a
+    explanation: "An empty `helm.releaseName` falls back to the Application name."
+
+  - id: ats068-010-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict which Helm value wins"
+    source_readings:
+      - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+    prompt: |-
+      `values.yaml` sets `replicaCount: 1`. The Application sets `valuesObject.replicaCount: 2` and `parameters` with `replicaCount=3`. How many replicas does the rendered Deployment have?
+    options:
+      - id: a
+        text: "1, because the chart default is the most trusted source."
+        explanation: "The chart default has the lowest precedence."
+      - id: b
+        text: "2, because `valuesObject` always wins."
+        explanation: "A `parameters` entry has higher precedence than `valuesObject`."
+      - id: c
+        text: "3, because a parameter overrides a values object, which overrides the chart default."
+        explanation: "Correct. The order is chart defaults, value files, values object, then parameters."
+      - id: d
+        text: "The render fails because the sources conflict."
+        explanation: "Conflicts are not an error; the later source wins."
+    correct_option: c
+    explanation: "Parameters beat `valuesObject`, which beats value files, which beat the chart `values.yaml`."
+
+  - id: ats068-010-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Diagnose a rename of a release"
+    source_readings:
+      - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+    prompt: |-
+      An operator changes `helm.releaseName` of a running Application from `scout` to `scout-v2`. The chart uses the release name in object names and selector labels. Pruning is on. What happens?
+    options:
+      - id: a
+        text: "Nothing, the release name is only a label."
+        explanation: "The chart uses it in names and selectors, so generated objects change."
+      - id: b
+        text: "Argo CD creates objects with the new names and prunes the old ones."
+        explanation: "Correct. Names generated from the release name change, so the old objects are no longer in the desired state."
+      - id: c
+        text: "Helm renames the old objects in place."
+        explanation: "Argo CD does not run a Helm upgrade, and Kubernetes cannot rename objects."
+      - id: d
+        text: "The sync is rejected before any change."
+        explanation: "Argo CD does not reject a rename."
+    correct_option: b
+    explanation: "New names mean new objects. With pruning, the old ones are deleted."
+
+  - id: ats068-010-q05
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain base and overlay in Kustomize"
+    source_readings:
+      - sections/section-010/module-01/course-02-kustomize-bases-overlays-and-argo-cd.md
+    prompt: |-
+      What is the role of an overlay in Kustomize?
+    options:
+      - id: a
+        text: "It is a directory that lists a base under `resources` and adds changes such as patches, a namespace or image overrides."
+        explanation: "Correct. The overlay specialises the base for one environment and leaves the base unchanged."
+      - id: b
+        text: "It is a copy of the base that you edit by hand."
+        explanation: "An overlay references the base; it is not a copy."
+      - id: c
+        text: "It is a Helm values file."
+        explanation: "Kustomize overlays are not Helm values files."
+      - id: d
+        text: "It is a plugin that runs inside the cluster."
+        explanation: "Kustomize runs at build time and not in the cluster."
+    correct_option: a
+    explanation: "An overlay refers to a base and declares the differences for one environment."
+
+  - id: ats068-010-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Diagnose a patch target error"
+    source_readings:
+      - sections/section-010/module-01/course-02-kustomize-bases-overlays-and-argo-cd.md
+    prompt: |-
+      A strategic merge patch in an overlay names a Deployment `scouts`, but the base Deployment is named `scout`. What does Argo CD show?
+    options:
+      - id: a
+        text: "The patch is ignored and the Deployment is applied without it."
+        explanation: "Kustomize does not skip a patch with no target."
+      - id: b
+        text: "A comparison error on the Application, because the build fails with no match for the patch target."
+        explanation: "Correct. The repo-server cannot build the overlay and reports a `ComparisonError`."
+      - id: c
+        text: "A new Deployment named `scouts`."
+        explanation: "A patch does not create a new object."
+      - id: d
+        text: "A sync error from the Kubernetes API server."
+        explanation: "The failure happens before any request to the API server."
+    correct_option: b
+    explanation: "A patch with no matching `kind` and `name` stops the build."
+
+  - id: ats068-010-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose where to keep an environment difference"
+    source_readings:
+      - sections/section-010/module-01/course-02-kustomize-bases-overlays-and-argo-cd.md
+    prompt: |-
+      The same overlay must run twice in one cluster with a different image tag in each Application, without a commit for each. Which setting does this?
+    options:
+      - id: a
+        text: "`spec.source.kustomize.images` in the Application."
+        explanation: "Correct. Argo CD edits a temporary copy of the kustomization, so Git does not change."
+      - id: b
+        text: "`spec.syncPolicy.automated`."
+        explanation: "Automated sync does not change the image."
+      - id: c
+        text: "`spec.destination.namespace`."
+        explanation: "The destination namespace does not set an image."
+      - id: d
+        text: "`ignoreDifferences`."
+        explanation: "This setting hides differences; it does not set an image."
+    correct_option: a
+    explanation: "The `kustomize.images` block overrides the image at render time."
+
+  - id: ats068-010-q08
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Judge repeatability of rendering"
+    source_readings:
+      - sections/section-010/module-01/course-03-repeatable-rendering-secrets-and-errors.md
+    prompt: |-
+      A chart template sets a password with `randAlphaNum 16`. The Application is always `OutOfSync`, even though nobody changes Git. What is the cause and the right fix?
+    options:
+      - id: a
+        text: "The repository is too large. Reduce the number of files."
+        explanation: "Repository size does not change the comparison."
+      - id: b
+        text: "Every render produces a new value, so desired state differs at each refresh. Create the password once outside the template and reference it."
+        explanation: "Correct. The output must depend only on the commit."
+      - id: c
+        text: "Argo CD cannot render charts. Switch to Kustomize."
+        explanation: "Argo CD renders charts correctly; the template is unstable."
+      - id: d
+        text: "Add `ignoreDifferences` for the whole Deployment."
+        explanation: "This hides real changes and does not remove the cause."
+    correct_option: b
+    explanation: "Rendering must be a function of the commit. Random values break it."
+
+  - id: ats068-010-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Locate secret exposure in generation inputs"
+    source_readings:
+      - sections/section-010/module-01/course-03-repeatable-rendering-secrets-and-errors.md
+    prompt: |-
+      Which practice is wrong?
+    options:
+      - id: a
+        text: "Pinning a chart to an exact version."
+        explanation: "This improves repeatability."
+      - id: b
+        text: "Writing a database password into `values.yaml` in the repository."
+        explanation: "Correct. Every reader of the repository, and the rendered manifests in Argo CD, can see it."
+      - id: c
+        text: "Referencing the name of a Secret that another component creates."
+        explanation: "This keeps the value out of the inputs."
+      - id: d
+        text: "Requiring review on the branch that Applications follow."
+        explanation: "This protects the trust boundary."
+    correct_option: b
+    explanation: "Secret values must not appear in values files, patches or generator literals."
+
+  - id: ats068-010-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Order the stages when debugging"
+    source_readings:
+      - sections/section-010/module-01/course-03-repeatable-rendering-secrets-and-errors.md
+    prompt: |-
+      An Application is Synced and the manifests render without error, but the pods crash. In which stage does the problem lie?
+    options:
+      - id: a
+        text: "Rendering, because Helm produced bad YAML."
+        explanation: "The render succeeded."
+      - id: b
+        text: "Source retrieval, because the commit was not found."
+        explanation: "The Application is Synced, so retrieval worked."
+      - id: c
+        text: "After apply: pod readiness and application behaviour, which a successful render does not prove."
+        explanation: "Correct. Rendering, comparison and apply are done; the pods are a runtime problem."
+      - id: d
+        text: "The comparison, because it found no difference."
+        explanation: "No difference is the expected result after a good sync."
+    correct_option: c
+    explanation: "A successful render says nothing about runtime health."

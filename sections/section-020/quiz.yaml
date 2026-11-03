@@ -1,0 +1,300 @@
+# Knowledge check for section-020. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats068-020
+course_id: ATS068
+exam_code: CGOA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-020
+  title: "State Store Systems (Git and alternatives)"
+questions:
+  - id: ats068-020-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain what a commit ID identifies"
+    source_readings:
+      - sections/section-020/module-01/course-01-git-as-a-state-store-commits-branches-and-tags.md
+    prompt: |-
+      Two commits in different clones of a repository have the same 40-character ID. What follows?
+    options:
+      - id: a
+        text: "The commits have the same author."
+        explanation: "The author is part of the hashed data, but the ID being equal says more: all the content is the same."
+      - id: b
+        text: "The commits have the same content and the same history."
+        explanation: "Correct. The ID is a hash of the tree, the parents and the metadata, so the same ID means the same content."
+      - id: c
+        text: "The commits were made at the same time."
+        explanation: "The time is only one input to the hash."
+      - id: d
+        text: "Nothing, because IDs are reused after a push."
+        explanation: "A commit ID is not reused for different content."
+    correct_option: b
+    explanation: "A commit ID is a hash of the content and its chain of parents."
+
+  - id: ats068-020-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Distinguish branch, tag and commit"
+    source_readings:
+      - sections/section-020/module-01/course-01-git-as-a-state-store-commits-branches-and-tags.md
+    prompt: |-
+      Which statement is correct?
+    options:
+      - id: a
+        text: "A branch and a tag are names that point at a commit. A branch moves forward and a tag is meant to stay."
+        explanation: "Correct. Git does not forbid moving a tag, but the convention is that it stays."
+      - id: b
+        text: "A tag stores a copy of the files."
+        explanation: "A tag points at a commit and has no copy of the files."
+      - id: c
+        text: "A branch cannot be changed after it is created."
+        explanation: "A branch moves with every new commit."
+      - id: d
+        text: "A commit ID changes when a branch moves."
+        explanation: "A commit ID never changes."
+    correct_option: a
+    explanation: "Branches and tags are movable names. Only the commit ID names content."
+
+  - id: ats068-020-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Locate the resolving step in Argo CD"
+    source_readings:
+      - sections/section-020/module-01/course-01-git-as-a-state-store-commits-branches-and-tags.md
+    prompt: |-
+      An Application has `targetRevision: main`. Which value shows which commit it last used?
+    options:
+      - id: a
+        text: "`spec.source.targetRevision`."
+        explanation: "This is the request, not the result."
+      - id: b
+        text: "`status.sync.revision`."
+        explanation: "Correct. The repo-server resolves the name and the status records the commit."
+      - id: c
+        text: "`metadata.name`."
+        explanation: "The name of the Application says nothing about the commit."
+      - id: d
+        text: "`spec.destination.namespace`."
+        explanation: "The destination is the target cluster namespace."
+    correct_option: b
+    explanation: "The status holds the resolved commit, which is the evidence of what ran."
+
+  - id: ats068-020-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Judge a refresh delay"
+    source_readings:
+      - sections/section-020/module-01/course-01-git-as-a-state-store-commits-branches-and-tags.md
+    prompt: |-
+      A commit is pushed to `main`. Three minutes later the Application is still on the old commit. Which explanation fits?
+    options:
+      - id: a
+        text: "Argo CD refreshes on an interval and by webhook. It may not have refreshed yet, and a hard refresh forces it."
+        explanation: "Correct. Between refreshes the Application keeps the commit it resolved last."
+      - id: b
+        text: "Argo CD cannot follow branches."
+        explanation: "It can follow branches."
+      - id: c
+        text: "The Application must be deleted and created again."
+        explanation: "This is not needed."
+      - id: d
+        text: "Git cannot serve new commits within three minutes."
+        explanation: "Git serves them at once."
+    correct_option: a
+    explanation: "Refresh runs by interval or webhook. The annotation `argocd.argoproj.io/refresh` forces it."
+
+  - id: ats068-020-q05
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Choose the only fixed pin"
+    source_readings:
+      - sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
+    prompt: |-
+      Which `targetRevision` value can never select another commit after it is set?
+    options:
+      - id: a
+        text: "`main`."
+        explanation: "A branch moves with new commits."
+      - id: b
+        text: "`v1.0.0`."
+        explanation: "A tag can be moved."
+      - id: c
+        text: "`1.*`."
+        explanation: "A range picks up new matching tags."
+      - id: d
+        text: "A full 40-character commit ID."
+        explanation: "Correct. No push or tag move can change it."
+    correct_option: d
+    explanation: "Only a commit ID is immutable."
+
+  - id: ats068-020-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict a range"
+    source_readings:
+      - sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
+    prompt: |-
+      An Application uses `targetRevision: 1.*`. The tags `1.0.0`, `1.4.2` and `2.0.0` exist. Which does it use?
+    options:
+      - id: a
+        text: "`1.0.0`, the first match."
+        explanation: "Argo CD takes the highest match."
+      - id: b
+        text: "`1.4.2`, the highest tag inside the range."
+        explanation: "Correct. `2.0.0` is outside the range."
+      - id: c
+        text: "`2.0.0`, the newest tag."
+        explanation: "It is outside the range."
+      - id: d
+        text: "None, because ranges are not allowed for Git."
+        explanation: "Ranges are supported for Git tags."
+    correct_option: b
+    explanation: "A range selects the highest matching tag."
+
+  - id: ats068-020-q07
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Interpret a pinned Application"
+    source_readings:
+      - sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
+    prompt: |-
+      An Application is pinned to a commit and shows `Synced` and `Healthy`. The branch has 12 newer commits that fix a defect. What does the status tell you?
+    options:
+      - id: a
+        text: "The environment is current with the branch."
+        explanation: "The status compares with the pinned commit only."
+      - id: b
+        text: "The environment matches the pinned commit and works, but it does not have the fixes on the branch."
+        explanation: "Correct. A green status is about the pin, not the branch."
+      - id: c
+        text: "Argo CD will sync the newer commits at the next refresh."
+        explanation: "The pin does not move."
+      - id: d
+        text: "The repository is unreachable."
+        explanation: "An unreachable repository shows an error condition."
+    correct_option: b
+    explanation: "A pinned Application stays Synced however far the branch moves."
+
+  - id: ats068-020-q08
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain why rollback is a Git change"
+    source_readings:
+      - sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
+    prompt: |-
+      Automated sync is on. An operator runs `argocd app rollback` to an earlier history entry. What is true?
+    options:
+      - id: a
+        text: "The command is not allowed while automated sync is on, and a lasting rollback is a change in Git."
+        explanation: "Correct. Automated sync would apply the current Git state again."
+      - id: b
+        text: "The rollback is permanent."
+        explanation: "The controller would sync to Git again."
+      - id: c
+        text: "Argo CD rewrites the Git history."
+        explanation: "Argo CD does not write to Git."
+      - id: d
+        text: "The history is limited to one entry."
+        explanation: "`revisionHistoryLimit` defaults to 10."
+    correct_option: a
+    explanation: "Rollback conflicts with automated sync. Revert in Git instead."
+
+  - id: ats068-020-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare store identifiers"
+    source_readings:
+      - sections/section-020/module-01/course-03-alternative-stores-access-audit-and-recovery.md
+    prompt: |-
+      Which identifier fixes the content in an OCI registry?
+    options:
+      - id: a
+        text: "The tag."
+        explanation: "A tag can be moved to other content."
+      - id: b
+        text: "The registry host name."
+        explanation: "The host name does not identify content."
+      - id: c
+        text: "The digest, a hash of the content."
+        explanation: "Correct. A digest cannot refer to other content."
+      - id: d
+        text: "The chart name."
+        explanation: "A name is not a content identifier."
+    correct_option: c
+    explanation: "Use a digest, like a commit ID in Git."
+
+  - id: ats068-020-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Separate verification from safety"
+    source_readings:
+      - sections/section-020/module-01/course-03-alternative-stores-access-audit-and-recovery.md
+    prompt: |-
+      A manifest has a valid signature from an approved key. What does that prove?
+    options:
+      - id: a
+        text: "Who signed it and that it did not change afterwards, but not that its content is safe."
+        explanation: "Correct. Review of the content is separate."
+      - id: b
+        text: "That its content is safe to deploy."
+        explanation: "A signed manifest can still ask for a privileged container."
+      - id: c
+        text: "That all images it names exist."
+        explanation: "Signatures say nothing about images."
+      - id: d
+        text: "That the cluster is healthy."
+        explanation: "Signatures say nothing about the cluster."
+    correct_option: a
+    explanation: "A signature proves origin and integrity, not safety."
+
+  - id: ats068-020-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a recovery method"
+    source_readings:
+      - sections/section-020/module-01/course-03-alternative-stores-access-audit-and-recovery.md
+    prompt: |-
+      Release 6.99.0 is on `main`, and Argo CD follows `main`. Which action restores the previous state and keeps the record?
+    options:
+      - id: a
+        text: "`git reset --hard HEAD~1` and a forced push."
+        explanation: "This removes the bad commit from the history."
+      - id: b
+        text: "Edit the live Deployment by hand."
+        explanation: "Self-heal or the next sync would undo it."
+      - id: c
+        text: "`git revert` of the bad commit and a normal push."
+        explanation: "Correct. It adds a new commit and keeps the history."
+      - id: d
+        text: "Delete the Application."
+        explanation: "This does not restore the state."
+    correct_option: c
+    explanation: "A revert commit restores the files and keeps the evidence."
+
+  - id: ats068-020-q12
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Give the right access to an engine"
+    source_readings:
+      - sections/section-020/module-01/course-03-alternative-stores-access-audit-and-recovery.md
+    prompt: |-
+      Which credential should an Argo CD instance use for a Git repository?
+    options:
+      - id: a
+        text: "A read-only deploy credential."
+        explanation: "Correct. The engine only needs to read."
+      - id: b
+        text: "An administrator token of the Git host."
+        explanation: "This allows the engine to change what it reads."
+      - id: c
+        text: "The credential of a developer."
+        explanation: "This ties access to a person."
+      - id: d
+        text: "No credential for a private repository."
+        explanation: "A private repository requires one."
+    correct_option: a
+    explanation: "Use read access only. Writers get their own narrow credential."

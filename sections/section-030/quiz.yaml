@@ -1,0 +1,301 @@
+# Knowledge check for section-030. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats068-030
+course_id: ATS068
+exam_code: CGOA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-030
+  title: "Reconciliation Engines (ArgoCD, Flux, and alternatives)"
+questions:
+  - id: ats068-030-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the Argo CD component that renders manifests"
+    source_readings:
+      - sections/section-030/module-01/course-01-argo-cd-components-and-the-reconciliation-loop.md
+    prompt: |-
+      Which Argo CD component fetches the repository and renders Helm or Kustomize into manifests?
+    options:
+      - id: a
+        text: "The API server."
+        explanation: "The API server serves the UI and the command-line tool."
+      - id: b
+        text: "The repo-server."
+        explanation: "Correct. It clones the repository and runs the renderer."
+      - id: c
+        text: "Redis."
+        explanation: "Redis is a cache."
+      - id: d
+        text: "The application controller."
+        explanation: "The controller compares the rendered result with the cluster and applies it."
+    correct_option: b
+    explanation: "The repo-server renders. The controller compares and applies."
+
+  - id: ats068-030-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Read the sync status"
+    source_readings:
+      - sections/section-030/module-01/course-01-argo-cd-components-and-the-reconciliation-loop.md
+    prompt: |-
+      An Application shows `OutOfSync` and `Missing`, and nothing is created. What is the most likely reason?
+    options:
+      - id: a
+        text: "The Application has no automated sync policy, so a sync must be started."
+        explanation: "Correct. Without a policy the controller only compares and reports."
+      - id: b
+        text: "Argo CD cannot read Git."
+        explanation: "An unreadable repository shows an error condition, not a clean comparison."
+      - id: c
+        text: "The cluster is full."
+        explanation: "This would show failed resources after a sync."
+      - id: d
+        text: "Redis is missing."
+        explanation: "Redis is not needed to start a sync."
+    correct_option: a
+    explanation: "No policy means compare and report only."
+
+  - id: ats068-030-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Separate sync and health"
+    source_readings:
+      - sections/section-030/module-01/course-01-argo-cd-components-and-the-reconciliation-loop.md
+    prompt: |-
+      Which pair is correct?
+    options:
+      - id: a
+        text: "Sync compares Git with the cluster. Health reports whether the live objects work."
+        explanation: "Correct. They are two independent fields."
+      - id: b
+        text: "Sync reports whether pods run. Health compares Git."
+        explanation: "The meanings are swapped."
+      - id: c
+        text: "Both fields show the same thing."
+        explanation: "They can differ, for example Synced and Degraded."
+      - id: d
+        text: "Health is only set by a person."
+        explanation: "The controller computes it."
+    correct_option: a
+    explanation: "`status.sync.status` and `status.health.status` answer different questions."
+
+  - id: ats068-030-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose the policy field for drift"
+    source_readings:
+      - sections/section-030/module-01/course-02-sync-policy-automated-sync-prune-and-self-heal.md
+    prompt: |-
+      Someone scales a managed Deployment by hand. Which setting makes Argo CD revert it?
+    options:
+      - id: a
+        text: "`prune: true`."
+        explanation: "Prune deletes objects that left Git."
+      - id: b
+        text: "`allowEmpty: true`."
+        explanation: "This allows an empty source."
+      - id: c
+        text: "`selfHeal: true`."
+        explanation: "Correct. Self-heal reverts live changes."
+      - id: d
+        text: "`CreateNamespace=true`."
+        explanation: "This creates the namespace."
+    correct_option: c
+    explanation: "Self-heal handles drift. Prune handles removal."
+
+  - id: ats068-030-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain prune"
+    source_readings:
+      - sections/section-030/module-01/course-02-sync-policy-automated-sync-prune-and-self-heal.md
+    prompt: |-
+      A manifest is removed from the Git path. With automated sync and `prune: false`, what happens to the live object?
+    options:
+      - id: a
+        text: "It is deleted at once."
+        explanation: "Deletion needs prune."
+      - id: b
+        text: "It stays, and the Application shows OutOfSync."
+        explanation: "Correct. Argo CD reports it but does not delete it."
+      - id: c
+        text: "Argo CD commits the file back to Git."
+        explanation: "Argo CD does not write to Git."
+      - id: d
+        text: "The Application is deleted."
+        explanation: "The Application is not affected."
+    correct_option: b
+    explanation: "Without prune, removed objects stay."
+
+  - id: ats068-030-q06
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Order a sync"
+    source_readings:
+      - sections/section-030/module-01/course-03-sync-order-health-and-deleting-applications.md
+    prompt: |-
+      A Service must exist before a Deployment is applied. Which mechanism orders them?
+    options:
+      - id: a
+        text: "The alphabetical order of the file names."
+        explanation: "File names do not set the order."
+      - id: b
+        text: "Sync waves through the annotation `argocd.argoproj.io/sync-wave`."
+        explanation: "Correct. Lower waves go first."
+      - id: c
+        text: "`replicas: 0`."
+        explanation: "This does not order anything."
+      - id: d
+        text: "A second Application with the same name."
+        explanation: "Names must be unique."
+    correct_option: b
+    explanation: "Waves order the apply and wait for health between waves."
+
+  - id: ats068-030-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict deletion"
+    source_readings:
+      - sections/section-030/module-01/course-03-sync-order-health-and-deleting-applications.md
+    prompt: |-
+      An Application has the finalizer `resources-finalizer.argocd.argoproj.io` and is deleted. What happens to its objects?
+    options:
+      - id: a
+        text: "They stay in the cluster."
+        explanation: "They stay only without the finalizer."
+      - id: b
+        text: "They are deleted with the Application (cascade)."
+        explanation: "Correct. The finalizer makes the controller delete them first."
+      - id: c
+        text: "They move to another namespace."
+        explanation: "Objects are not moved."
+      - id: d
+        text: "They are scaled to zero."
+        explanation: "They are deleted."
+    correct_option: b
+    explanation: "The finalizer turns on cascade deletion."
+
+  - id: ats068-030-q08
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the Flux controllers"
+    source_readings:
+      - sections/section-030/module-02/course-01-flux-controllers-and-the-source-pipeline.md
+    prompt: |-
+      Which Flux controller fetches the Git repository and publishes an artifact?
+    options:
+      - id: a
+        text: "The helm-controller."
+        explanation: "It installs charts."
+      - id: b
+        text: "The kustomize-controller."
+        explanation: "It applies Kustomizations."
+      - id: c
+        text: "The notification-controller."
+        explanation: "It handles events and alerts."
+      - id: d
+        text: "The source-controller."
+        explanation: "Correct. It fetches sources and stores the artifact."
+    correct_option: d
+    explanation: "The source controller produces artifacts that other controllers use."
+
+  - id: ats068-030-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read a Flux revision"
+    source_readings:
+      - sections/section-030/module-02/course-01-flux-controllers-and-the-source-pipeline.md
+    prompt: |-
+      Where does Flux record the commit a GitRepository last fetched?
+    options:
+      - id: a
+        text: "`status.artifact.revision`, in the form `main@sha1:<commit>`."
+        explanation: "Correct."
+      - id: b
+        text: "`spec.ref.branch`."
+        explanation: "This is the request."
+      - id: c
+        text: "`metadata.uid`."
+        explanation: "The UID is unrelated."
+      - id: d
+        text: "`spec.interval`."
+        explanation: "This is the check period."
+    correct_option: a
+    explanation: "The artifact revision names branch and commit."
+
+  - id: ats068-030-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Decide the Helm release storage"
+    source_readings:
+      - sections/section-030/module-02/course-02-kustomization-and-helmrelease-objects.md
+    prompt: |-
+      A HelmRelease in `flux-system` has `targetNamespace: starfleet-staging` and no `storageNamespace`. Where is the Helm release record stored?
+    options:
+      - id: a
+        text: "In `starfleet-staging`."
+        explanation: "The default is not the target namespace."
+      - id: b
+        text: "In `kube-system`."
+        explanation: "Not used."
+      - id: c
+        text: "In the namespace of the HelmRelease, `flux-system`."
+        explanation: "Correct. Set `storageNamespace` to change it."
+      - id: d
+        text: "Nowhere. Flux does not create release records."
+        explanation: "The helm-controller runs real Helm releases."
+    correct_option: c
+    explanation: "Storage defaults to the HelmRelease namespace."
+
+  - id: ats068-030-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare pause behaviour"
+    source_readings:
+      - sections/section-030/module-02/course-03-comparing-argo-cd-and-flux-pause-drift-and-prune.md
+    prompt: |-
+      A Kustomization has `suspend: true` and the cluster object is changed by hand. What happens?
+    options:
+      - id: a
+        text: "Flux reverts it at the next interval."
+        explanation: "A suspended object is not reconciled."
+      - id: b
+        text: "Nothing is reverted until the object is resumed."
+        explanation: "Correct. Suspension stops reconciliation."
+      - id: c
+        text: "Flux deletes the Kustomization."
+        explanation: "Suspension does not delete."
+      - id: d
+        text: "Flux commits the change to Git."
+        explanation: "Flux does not write to Git here."
+    correct_option: b
+    explanation: "Suspend stops both delivery and drift correction."
+
+  - id: ats068-030-q12
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose the Helm chart update trigger"
+    source_readings:
+      - sections/section-030/module-02/course-02-kustomization-and-helmrelease-objects.md
+      - sections/section-030/module-02/course-03-comparing-argo-cd-and-flux-pause-drift-and-prune.md
+    prompt: |-
+      A chart is read from Git and only `values.yaml` changes in a new commit. Which setting makes Flux build a new chart version from it?
+    options:
+      - id: a
+        text: "`reconcileStrategy: Revision`."
+        explanation: "Correct. A new Git revision gives a new chart artifact."
+      - id: b
+        text: "`reconcileStrategy: ChartVersion`."
+        explanation: "It acts only when the chart version in Chart.yaml changes."
+      - id: c
+        text: "`prune: true`."
+        explanation: "Prune is for removal."
+      - id: d
+        text: "`wait: true`."
+        explanation: "Wait checks readiness."
+    correct_option: a
+    explanation: "ChartVersion needs a version bump. Revision follows the commit."

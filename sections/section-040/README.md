@@ -5,9 +5,9 @@ exam_objectives:
 ---
 # Interoperability with Notifications, Observability, and Continuous Integration Tools
 
-This section covers interoperability with Notifications, Observability, and Continuous Integration Tools. It develops build Artifacts, Notifications And Observable Delivery Contracts through mechanisms, examples, prerequisites and failure reasoning.
+This section covers how a GitOps engine works with the tools around it. It has one module. The module explains the contract between CI and the engine, the notification objects in Flux and Argo CD in both directions, and the signals that show whether a delivery worked: status, events and metrics.
 
-Read the module goals, teaching and closing summary in order. YAML checks are indexed separately and appear after designated summaries. Larger domains can include intermediate checkpoints before the final review.
+The module has three reading parts, a playground, a graded lab and a summary. A capstone lab and a knowledge check close the section.
 
 ## Learning Outcomes
 

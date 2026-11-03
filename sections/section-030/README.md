@@ -5,12 +5,13 @@ exam_objectives:
 ---
 # Reconciliation Engines (ArgoCD, Flux, and alternatives)
 
-This section covers reconciliation Engines (ArgoCD, Flux, and alternatives). It develops argo CD, Flux And Supported Reconciliation Responsibilities through mechanisms, examples, prerequisites and failure reasoning.
+This section covers the reconciliation engine, the program that keeps a cluster equal to the desired state in Git. It has two modules. The first explains Argo CD: its components, the sync policy with automated sync, prune and self-heal, and the order and health of a sync. The second explains Flux: its controllers, the Kustomization and HelmRelease objects, and how Flux differs from Argo CD in drift correction, pruning and pause.
 
-Read the module goals, teaching and closing summary in order. YAML checks are indexed separately and appear after designated summaries. Larger domains can include intermediate checkpoints before the final review.
+Each module has three reading parts, a playground, a graded lab and a summary. A capstone lab and a knowledge check close the section.
 
 ## Learning Outcomes
 
 - Compare reconciliation-engine responsibilities without assuming identical APIs.
 - Trace source retrieval, rendering and target management.
 - Identify engine-specific lifecycle and policy requirements.
+- Resume and verify a paused delivery.

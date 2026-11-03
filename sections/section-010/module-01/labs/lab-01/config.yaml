@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Render A Helm Chart And A Kustomize Overlay With Argo CD (LAB). Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-068-lab-010-01
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+      - ghcr.io/stefanprodan/podinfo:6.14.0
+      - gitea/gitea:28.1.0-rootless
+      - quay.io/argoproj/argocd:v3.5.4
+      - public.ecr.aws/docker/library/redis:8.2.3-alpine
+  portForwards:
+    - name: argocd
+      description: "Argo CD API server and web page"
+      namespace: argocd
+      resource: svc/argocd-server
+      targetPort: 443
+      hostPort: 8080
+      scheme: https
+    - name: gitea
+      description: "The Git server (git over HTTP)"
+      namespace: gitea
+      resource: svc/gitea-http
+      targetPort: 3000
+      hostPort: 3000
+      scheme: http
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-gitea
+      description: "Starts the in-cluster Git server"
+      type: file
+      source: bootstrap/01-install-gitea.sh
+    - name: install-argocd
+      description: "Installs Argo CD 3.5.4 (non-HA, without Dex and notifications)"
+      type: file
+      source: bootstrap/02-install-argocd.sh
+    - name: seed
+      description: "Pushes the scout-deploy repository into Git and prepares credentials"
+      type: file
+      source: bootstrap/03-seed.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: "Reference solution applied by astrona test"
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: chart-application
+      description: "Application scout-chart renders the chart with release name scout and the message value"
+      type: file
+      source: validation/validate-chart-application.sh
+      hint: "Set source.helm.releaseName and source.helm.valuesObject in the Application, and point path at chart."
+    - name: chart-delivered
+      description: "Argo CD delivered the chart: 2 replicas, release label scout, message from-chart"
+      type: file
+      source: validation/validate-chart-delivered.sh
+      hint: "Replicas come from replicaCount in the values. Add CreateNamespace=true to the sync options."
+    - name: overlay-application
+      description: "Application scout-overlay builds overlays/production and overrides the image"
+      type: file
+      source: validation/validate-overlay-application.sh
+      hint: "Use source.kustomize.images with the full image and tag."
+    - name: overlay-delivered
+      description: "Argo CD delivered the overlay with image 6.14.0 and 2 replicas"
+      type: file
+      source: validation/validate-overlay-delivered.sh
+      hint: "Do not edit Git. The override belongs in the Application."
+
+teardown:
+  keepCluster: false

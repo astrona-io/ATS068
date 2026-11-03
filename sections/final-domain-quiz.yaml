@@ -1,0 +1,300 @@
+# Knowledge check for tooling. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats068-final
+course_id: ATS068
+exam_code: CGOA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: domain
+  id: tooling
+  title: "Tooling"
+questions:
+  - id: ats068-final-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Place the rendering step"
+    source_readings:
+      - sections/section-030/module-01/course-01-argo-cd-components-and-the-reconciliation-loop.md
+    prompt: |-
+      Where does Argo CD turn a Helm chart or a Kustomize directory into manifests?
+    options:
+      - id: a
+        text: "In the repo-server."
+        explanation: "Correct. It clones the repository and runs the renderer."
+      - id: b
+        text: "In the Git server."
+        explanation: "Git stores files and does not render them."
+      - id: c
+        text: "In the browser."
+        explanation: "The interface only shows results."
+      - id: d
+        text: "In each Pod."
+        explanation: "Pods run workloads."
+    correct_option: a
+    explanation: "The repo-server renders. The controller compares and applies."
+
+  - id: ats068-final-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict a Helm release name effect"
+    source_readings:
+      - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+    prompt: |-
+      A chart names its objects after the release name. An Application sets no release name. What does Argo CD use?
+    options:
+      - id: a
+        text: "A random name."
+        explanation: "The name is not random."
+      - id: b
+        text: "The name of the Application."
+        explanation: "Correct. It is the default release name."
+      - id: c
+        text: "The name of the repository."
+        explanation: "The repository name is not used."
+      - id: d
+        text: "The name of the namespace."
+        explanation: "The namespace is separate."
+    correct_option: b
+    explanation: "Set the release name when object names matter."
+
+  - id: ats068-final-q03
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain rendering that is not repeatable"
+    source_readings:
+      - sections/section-010/module-01/course-01-helm-and-kustomize-as-argo-cd-rendering-inputs.md
+    prompt: |-
+      Two renders of the same commit give different manifests. Which cause fits?
+    options:
+      - id: a
+        text: "The chart or the overlay calls a function that returns a new value on each render."
+        explanation: "Correct. Rendering must be deterministic for a stable comparison."
+      - id: b
+        text: "Git changed the file between the renders."
+        explanation: "The same commit does not change."
+      - id: c
+        text: "The cluster has more nodes."
+        explanation: "Rendering does not read nodes."
+      - id: d
+        text: "The Application has automated sync."
+        explanation: "Sync policy does not change the render."
+    correct_option: a
+    explanation: "Random values in templates make an Application permanently OutOfSync."
+
+  - id: ats068-final-q04
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Tell a commit ID from a branch"
+    source_readings:
+      - sections/section-020/module-01/course-01-git-as-a-state-store-commits-branches-and-tags.md
+    prompt: |-
+      Which name always points at the same content?
+    options:
+      - id: a
+        text: "A branch name."
+        explanation: "A branch moves."
+      - id: b
+        text: "A commit ID."
+        explanation: "Correct."
+      - id: c
+        text: "The repository URL."
+        explanation: "A URL names a location."
+      - id: d
+        text: "The default branch."
+        explanation: "It moves too."
+    correct_option: b
+    explanation: "Only the commit ID is fixed."
+
+  - id: ats068-final-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Judge a pinned Application"
+    source_readings:
+      - sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
+    prompt: |-
+      An Application is pinned to a commit and shows `Synced`. A defect is fixed on the branch. What is the state of the environment?
+    options:
+      - id: a
+        text: "It has the fix."
+        explanation: "The pin ignores the branch."
+      - id: b
+        text: "It matches the pinned commit, so it does not have the fix."
+        explanation: "Correct."
+      - id: c
+        text: "It is OutOfSync."
+        explanation: "It compares with the pin."
+      - id: d
+        text: "It follows the branch at the next refresh."
+        explanation: "The pin does not move."
+    correct_option: b
+    explanation: "A green status is about the pinned commit."
+
+  - id: ats068-final-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a rollback that survives automated sync"
+    source_readings:
+      - sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
+    prompt: |-
+      Automated sync is on and a release is bad. Which action gives a lasting rollback?
+    options:
+      - id: a
+        text: "`argocd app rollback` to an older revision."
+        explanation: "It is not allowed while automated sync is on, and sync would undo it."
+      - id: b
+        text: "A revert commit in Git."
+        explanation: "Correct. Git stays the desired state."
+      - id: c
+        text: "Scale the Deployment by hand."
+        explanation: "Self-heal or sync reverts it."
+      - id: d
+        text: "Delete the Pods."
+        explanation: "The Pods are recreated from the same state."
+    correct_option: b
+    explanation: "Roll back by changing Git."
+
+  - id: ats068-final-q07
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the setting for drift"
+    source_readings:
+      - sections/section-030/module-01/course-02-sync-policy-automated-sync-prune-and-self-heal.md
+    prompt: |-
+      Which Argo CD setting reverts a manual change to a managed object?
+    options:
+      - id: a
+        text: "`prune`."
+        explanation: "It deletes objects that left Git."
+      - id: b
+        text: "`selfHeal`."
+        explanation: "Correct."
+      - id: c
+        text: "`allowEmpty`."
+        explanation: "It permits an empty source."
+      - id: d
+        text: "`CreateNamespace`."
+        explanation: "It creates the namespace."
+    correct_option: b
+    explanation: "Self-heal handles drift."
+
+  - id: ats068-final-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare Flux and Argo CD on pause"
+    source_readings:
+      - sections/section-030/module-02/course-03-comparing-argo-cd-and-flux-pause-drift-and-prune.md
+    prompt: |-
+      A Flux Kustomization is suspended and someone edits a managed object. What happens?
+    options:
+      - id: a
+        text: "Flux reverts the edit at the next interval."
+        explanation: "A suspended object is not reconciled."
+      - id: b
+        text: "The edit stays until the Kustomization is resumed."
+        explanation: "Correct."
+      - id: c
+        text: "Flux deletes the object."
+        explanation: "Suspension does not delete."
+      - id: d
+        text: "Flux opens a pull request."
+        explanation: "Flux does not do this."
+    correct_option: b
+    explanation: "Suspend stops delivery and drift correction."
+
+  - id: ats068-final-q09
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose the chart reconcile strategy"
+    source_readings:
+      - sections/section-030/module-02/course-02-kustomization-and-helmrelease-objects.md
+    prompt: |-
+      A chart in Git changes only in `values.yaml`, and the chart version stays the same. Which setting makes Flux build a new chart?
+    options:
+      - id: a
+        text: "`reconcileStrategy: ChartVersion`."
+        explanation: "It acts only on a version change."
+      - id: b
+        text: "`reconcileStrategy: Revision`."
+        explanation: "Correct."
+      - id: c
+        text: "`prune: true`."
+        explanation: "Prune is for removal."
+      - id: d
+        text: "`wait: true`."
+        explanation: "Wait checks readiness."
+    correct_option: b
+    explanation: "Revision follows every commit."
+
+  - id: ats068-final-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Place CI in the chain"
+    source_readings:
+      - sections/section-040/module-01/course-01-build-artifacts-and-the-ci-to-engine-contract.md
+    prompt: |-
+      Which tool should write the new image reference to the deployment repository in a CI-driven design?
+    options:
+      - id: a
+        text: "The CI job, with a credential that only reaches the path it changes."
+        explanation: "Correct. It keeps authority narrow."
+      - id: b
+        text: "The cluster, with an administrator token."
+        explanation: "The cluster does not write the desired state."
+      - id: c
+        text: "The registry."
+        explanation: "A registry stores images."
+      - id: d
+        text: "The developer laptop only."
+        explanation: "Automation is normal for this step."
+    correct_option: a
+    explanation: "CI changes Git and nothing else."
+
+  - id: ats068-final-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Match a notification object to a direction"
+    source_readings:
+      - sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
+    prompt: |-
+      Which Flux object accepts an inbound webhook and asks a source to fetch?
+    options:
+      - id: a
+        text: "Provider."
+        explanation: "A Provider sends outbound."
+      - id: b
+        text: "Alert."
+        explanation: "An Alert selects events."
+      - id: c
+        text: "Receiver."
+        explanation: "Correct."
+      - id: d
+        text: "Kustomization."
+        explanation: "A Kustomization applies manifests."
+    correct_option: c
+    explanation: "A Receiver is inbound and only triggers."
+
+  - id: ats068-final-q12
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Interpret a missing alert"
+    source_readings:
+      - sections/section-040/module-01/course-03-observing-delivery-status-events-and-metrics.md
+    prompt: |-
+      No alert arrived this week. Which conclusion is justified?
+    options:
+      - id: a
+        text: "The system is healthy."
+        explanation: "A broken path looks the same."
+      - id: b
+        text: "Nothing is proven until the notification path and the status are checked."
+        explanation: "Correct."
+      - id: c
+        text: "Flux sends no alerts by default, so none are needed."
+        explanation: "Alerts need an Alert and a Provider."
+      - id: d
+        text: "The cluster has no workloads."
+        explanation: "This does not follow."
+    correct_option: b
+    explanation: "Quiet is not healthy."

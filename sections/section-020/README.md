@@ -5,12 +5,13 @@ exam_objectives:
 ---
 # State Store Systems (Git and alternatives)
 
-This section covers state Store Systems (Git and alternatives). It develops git, Artifact Stores And Version Retrieval Contracts through mechanisms, examples, prerequisites and failure reasoning.
+This section covers the state store, the place where a GitOps engine reads the desired state. Git is the usual store, but chart repositories, OCI registries and bucket stores can play the same role. The section explains how each store identifies a version, how Argo CD resolves a branch or a tag into one commit, how to pin an environment to a reviewed version, and how to recover from a bad release.
 
-Read the module goals, teaching and closing summary in order. YAML checks are indexed separately and appear after designated summaries. Larger domains can include intermediate checkpoints before the final review.
+The module has three reading parts, a playground, a graded lab and a summary. A capstone lab and a knowledge check close the section.
 
 ## Learning Outcomes
 
 - Assess alternative state stores against version, access and audit needs.
 - Distinguish mutable selectors from content identifiers.
 - Explain retention and artifact verification in agent retrieval.
+- Recover from a bad release with a new commit that keeps the history.
