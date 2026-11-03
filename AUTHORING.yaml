@@ -41,6 +41,7 @@ sections:
     - How Argo CD Renders A Helm Chart
     - Kustomize Bases, Overlays And Argo CD
     - Repeatable Rendering, Secrets And Reading Errors
+    - Kustomize Components, Replacements And Helm Details
     playground: true
     module_lab: true
     sources:
@@ -49,6 +50,8 @@ sections:
     - reading: sections/section-010/module-01/course-02-kustomize-bases-overlays-and-argo-cd.md
       adapted_from: 
     - reading: sections/section-010/module-01/course-03-repeatable-rendering-secrets-and-errors.md
+      adapted_from: 
+    - reading: sections/section-010/module-01/course-04-kustomize-components-replacements-and-helm-details.md
       adapted_from: 
   - id: module-02
     title: Plain Manifests, Jsonnet And Config Management Plugins
@@ -89,6 +92,7 @@ sections:
     - 'Git As A State Store: Commits, Branches And Tags'
     - Pinning Versions And Resolving Selectors
     - Alternative Stores, Access, Audit And Recovery
+    - Fetch Cost, Webhooks And Monorepos
     playground: true
     module_lab: true
     sources:
@@ -97,6 +101,8 @@ sections:
     - reading: sections/section-020/module-01/course-02-pinning-versions-and-resolving-selectors.md
       adapted_from: 
     - reading: sections/section-020/module-01/course-03-alternative-stores-access-audit-and-recovery.md
+      adapted_from: 
+    - reading: sections/section-020/module-01/course-04-fetch-cost-webhooks-and-monorepos.md
       adapted_from: 
   - id: module-02
     title: OCI Artifacts As A State Store
@@ -137,6 +143,7 @@ sections:
     - Argo CD Components And The Reconciliation Loop
     - 'Sync Policy: Automated Sync, Prune And Self-Heal'
     - Sync Order, Health And Deleting Applications
+    - Diffing, Ignore Rules And Sync Options
     playground: true
     module_lab: true
     sources:
@@ -145,6 +152,8 @@ sections:
     - reading: sections/section-030/module-01/course-02-sync-policy-automated-sync-prune-and-self-heal.md
       adapted_from: 
     - reading: sections/section-030/module-01/course-03-sync-order-health-and-deleting-applications.md
+      adapted_from: 
+    - reading: sections/section-030/module-01/course-04-diffing-ignore-rules-and-sync-options.md
       adapted_from: 
   - id: module-02
     title: Flux As A Reconciliation Engine
@@ -156,6 +165,7 @@ sections:
     - Flux Controllers And The Source Pipeline
     - Kustomization And HelmRelease Objects
     - 'Comparing Argo CD And Flux: Pause, Drift And Prune'
+    - Flux Dependencies, Health Checks And Substitution
     playground: true
     module_lab: true
     sources:
@@ -164,6 +174,8 @@ sections:
     - reading: sections/section-030/module-02/course-02-kustomization-and-helmrelease-objects.md
       adapted_from: 
     - reading: sections/section-030/module-02/course-03-comparing-argo-cd-and-flux-pause-drift-and-prune.md
+      adapted_from: 
+    - reading: sections/section-030/module-02/course-04-dependencies-health-checks-and-substitution.md
       adapted_from: 
   - id: module-03
     title: Argo CD Projects, ApplicationSets And Multiple Sources
@@ -206,6 +218,7 @@ sections:
     - Build Artifacts And The CI To Engine Contract
     - 'Notifications: Events, Providers, Alerts And Receivers'
     - 'Observing Delivery: Status, Events And Metrics'
+    - 'Provenance: Signing And Verification'
     playground: true
     module_lab: true
     sources:
@@ -214,6 +227,8 @@ sections:
     - reading: sections/section-040/module-01/course-02-notifications-events-providers-alerts-and-receivers.md
       adapted_from: 
     - reading: sections/section-040/module-01/course-03-observing-delivery-status-events-and-metrics.md
+      adapted_from: 
+    - reading: sections/section-040/module-01/course-04-provenance-signing-and-verification.md
       adapted_from: 
   - id: module-02
     title: 'Image Updates: CI Commits And Automation'

@@ -23,4 +23,4 @@ You need the playground that opens with this module. It has Argo CD 3.5.4, a pri
 
 ## Reading Order
 
-The first part covers how Git identifies versions and how Argo CD resolves a revision. The second part covers pinning to a fixed version and reading the history that Argo CD keeps. A graded lab follows the second part. The third part covers other stores, access, audit, retention and recovery. The summary closes the module.
+The first part covers how Git identifies versions and how Argo CD resolves a revision. The second part covers pinning to a fixed version and reading the history that Argo CD keeps. A graded lab follows the second part. The third part covers other stores, access, audit, retention and recovery. The fourth part covers webhooks, caching and monorepos. The summary closes the module.

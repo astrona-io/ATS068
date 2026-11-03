@@ -442,3 +442,27 @@ questions:
         explanation: "A registry holds many tags and digests."
     correct_option: a
     explanation: "A registry gives immutable versions by digest but no history or review."
+
+  - id: ats068-020-q19
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use manifest-generate-paths"
+    source_readings:
+      - sections/section-020/module-01/course-04-fetch-cost-webhooks-and-monorepos.md
+    prompt: |-
+      Which setting stops a push to one service from refreshing every Application in a monorepo?
+    options:
+      - id: a
+        text: 'The annotation `argocd.argoproj.io/manifest-generate-paths` on each Application.'
+        explanation: 'Correct. Argo CD compares changed files with the paths when a webhook arrives.'
+      - id: b
+        text: 'A shorter reconciliation timeout.'
+        explanation: 'This causes more refreshes.'
+      - id: c
+        text: 'Disabling the webhook secret.'
+        explanation: 'This does not limit refreshes.'
+      - id: d
+        text: '`Prune=false`.'
+        explanation: 'This is a sync option for pruning.'
+    correct_option: a
+    explanation: 'The annotation works with webhooks, not with polling.'

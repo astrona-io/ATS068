@@ -22,4 +22,4 @@ You need the playground that opens with this module. It has Flux 2.9.6 in the na
 
 ## Reading Order
 
-The first part covers build artifacts and the contract between CI and the engine. The second part covers notifications. A graded lab follows the second part. The third part covers status, events and metrics as observability signals. The summary closes the module.
+The first part covers build artifacts and the contract between CI and the engine. The second part covers notifications. A graded lab follows the second part. The third part covers status, events and metrics as observability signals. The fourth part covers signing and verification of commits and artifacts. The summary closes the module.

@@ -443,3 +443,51 @@ questions:
         explanation: "The generator and the template come first."
     correct_option: a
     explanation: "Work from the ApplicationSet to the Application to the sync message."
+
+  - id: ats068-030-q19
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Ignore a field"
+    source_readings:
+      - sections/section-030/module-01/course-04-diffing-ignore-rules-and-sync-options.md
+    prompt: |-
+      A horizontal pod autoscaler changes the replica count and the Application shows OutOfSync. Which setting fixes the false difference?
+    options:
+      - id: a
+        text: 'An `ignoreDifferences` entry for `/spec/replicas` of the Deployment.'
+        explanation: 'Correct. The field is left out of the comparison.'
+      - id: b
+        text: '`Replace=true`.'
+        explanation: 'This overwrites the object on every sync.'
+      - id: c
+        text: '`PruneLast=true`.'
+        explanation: 'This orders deletions.'
+      - id: d
+        text: '`Validate=false`.'
+        explanation: 'This skips schema validation.'
+    correct_option: a
+    explanation: 'Add RespectIgnoreDifferences to keep the live value during a sync as well.'
+
+  - id: ats068-030-q20
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Order Kustomizations"
+    source_readings:
+      - sections/section-030/module-02/course-04-dependencies-health-checks-and-substitution.md
+    prompt: |-
+      How does a Flux Kustomization wait for another one to be ready before it applies?
+    options:
+      - id: a
+        text: '`spec.dependsOn` lists the other Kustomization.'
+        explanation: 'Correct. Flux waits for the listed objects to be Ready.'
+      - id: b
+        text: '`spec.suspend: true`.'
+        explanation: 'This stops reconciliation.'
+      - id: c
+        text: '`spec.prune: true`.'
+        explanation: 'This deletes removed objects.'
+      - id: d
+        text: '`spec.interval` set to a larger value.'
+        explanation: 'This changes timing, not order.'
+    correct_option: a
+    explanation: 'Use wait or healthChecks so that Ready also means the workload runs.'

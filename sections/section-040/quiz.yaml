@@ -442,3 +442,27 @@ questions:
         explanation: "The next run repeats the update."
     correct_option: a
     explanation: "A rollback needs a decision about the rule as well as the commit."
+
+  - id: ats068-040-q19
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Verify commits"
+    source_readings:
+      - sections/section-040/module-01/course-04-provenance-signing-and-verification.md
+    prompt: |-
+      Which setting makes Argo CD sync only commits signed by approved keys?
+    options:
+      - id: a
+        text: '`signatureKeys` in the AppProject.'
+        explanation: 'Correct. Unsigned commits or commits signed with other keys are not synced.'
+      - id: b
+        text: '`orphanedResources` in the AppProject.'
+        explanation: 'This reports unowned objects.'
+      - id: c
+        text: '`syncWindows` in the AppProject.'
+        explanation: 'This limits timing.'
+      - id: d
+        text: '`CreateNamespace=true`.'
+        explanation: 'This creates a namespace.'
+    correct_option: a
+    explanation: 'Flux does the equivalent with spec.verify on the GitRepository.'

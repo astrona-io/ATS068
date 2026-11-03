@@ -9,7 +9,7 @@ This section covers the state store, the place where a GitOps engine reads the d
 
 The section has two modules. The second covers OCI artifacts as a state store: their structure, the Flux OCIRepository, publishing and retention, and Argo CD OCI sources.
 
-The first module has three reading parts and the second has four. Each has a playground, a graded lab and a summary. A capstone lab and a knowledge check close the section.
+Each module has four reading parts, a playground, a graded lab and a summary. A capstone lab and a knowledge check close the section.
 
 ## Learning Outcomes
 

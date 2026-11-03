@@ -22,4 +22,4 @@ You need the playground that opens with this module. It has Flux 2.9.6 in the na
 
 ## Reading Order
 
-The first part covers the controllers and the source pipeline. The second part covers the Kustomization and HelmRelease objects. A graded lab follows the second part. The third part compares Flux with Argo CD and covers pause, drift and pruning. The summary closes the module.
+The first part covers the controllers and the source pipeline. The second part covers the Kustomization and HelmRelease objects. A graded lab follows the second part. The third part compares Flux with Argo CD and covers pause, drift and pruning. The fourth part covers dependencies, health checks and substitution. The summary closes the module.

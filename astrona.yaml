@@ -74,8 +74,11 @@ modules:
         title: "Repeatable Rendering, Secrets And Reading Errors"
         path: sections/section-010/module-01/course-03-repeatable-rendering-secrets-and-errors.md
       - type: reading
+        title: "Kustomize Components, Replacements And Helm Details"
+        path: sections/section-010/module-01/course-04-kustomize-components-replacements-and-helm-details.md
+      - type: reading
         title: "Summary"
-        path: sections/section-010/module-01/course-04-summary.md
+        path: sections/section-010/module-01/course-05-summary.md
       - type: reading
         title: "Plain Manifests, Jsonnet And Config Management Plugins"
         path: sections/section-010/module-02/course.md
@@ -177,8 +180,11 @@ modules:
         title: "Alternative Stores, Access, Audit And Recovery"
         path: sections/section-020/module-01/course-03-alternative-stores-access-audit-and-recovery.md
       - type: reading
+        title: "Fetch Cost, Webhooks And Monorepos"
+        path: sections/section-020/module-01/course-04-fetch-cost-webhooks-and-monorepos.md
+      - type: reading
         title: "Summary"
-        path: sections/section-020/module-01/course-04-summary.md
+        path: sections/section-020/module-01/course-05-summary.md
       - type: reading
         title: "OCI Artifacts As A State Store"
         path: sections/section-020/module-02/course.md
@@ -279,8 +285,11 @@ modules:
         title: "Sync Order, Health And Deleting Applications"
         path: sections/section-030/module-01/course-03-sync-order-health-and-deleting-applications.md
       - type: reading
+        title: "Diffing, Ignore Rules And Sync Options"
+        path: sections/section-030/module-01/course-04-diffing-ignore-rules-and-sync-options.md
+      - type: reading
         title: "Summary"
-        path: sections/section-030/module-01/course-04-summary.md
+        path: sections/section-030/module-01/course-05-summary.md
       - type: reading
         title: "Flux As A Reconciliation Engine"
         path: sections/section-030/module-02/course.md
@@ -312,8 +321,11 @@ modules:
         title: "Comparing Argo CD And Flux: Pause, Drift And Prune"
         path: sections/section-030/module-02/course-03-comparing-argo-cd-and-flux-pause-drift-and-prune.md
       - type: reading
+        title: "Flux Dependencies, Health Checks And Substitution"
+        path: sections/section-030/module-02/course-04-dependencies-health-checks-and-substitution.md
+      - type: reading
         title: "Summary"
-        path: sections/section-030/module-02/course-04-summary.md
+        path: sections/section-030/module-02/course-05-summary.md
       - type: reading
         title: "Argo CD Projects, ApplicationSets And Multiple Sources"
         path: sections/section-030/module-03/course.md
@@ -415,8 +427,11 @@ modules:
         title: "Observing Delivery: Status, Events And Metrics"
         path: sections/section-040/module-01/course-03-observing-delivery-status-events-and-metrics.md
       - type: reading
+        title: "Provenance: Signing And Verification"
+        path: sections/section-040/module-01/course-04-provenance-signing-and-verification.md
+      - type: reading
         title: "Summary"
-        path: sections/section-040/module-01/course-04-summary.md
+        path: sections/section-040/module-01/course-05-summary.md
       - type: reading
         title: "Image Updates: CI Commits And Automation"
         path: sections/section-040/module-02/course.md

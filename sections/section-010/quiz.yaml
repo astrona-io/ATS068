@@ -394,3 +394,27 @@ questions:
         explanation: "Helm adds templating that is not needed here."
     correct_option: a
     explanation: "Choose the simplest format that expresses the variation you have."
+
+  - id: ats068-010-q17
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use a component"
+    source_readings:
+      - sections/section-010/module-01/course-04-kustomize-components-replacements-and-helm-details.md
+    prompt: |-
+      Two overlays need the same extra patch. What avoids copying it?
+    options:
+      - id: a
+        text: 'A Kustomize component listed in the `components` of both overlays.'
+        explanation: 'Correct. The shared change lives once.'
+      - id: b
+        text: 'A second base copied into each overlay.'
+        explanation: 'This copies the change.'
+      - id: c
+        text: '`commonLabels` in both overlays.'
+        explanation: 'This adds labels only.'
+      - id: d
+        text: 'A Helm hook.'
+        explanation: 'Hooks do not apply to Kustomize.'
+    correct_option: a
+    explanation: 'Components hold shared changes.'

@@ -22,4 +22,4 @@ You need the playground that opens with this module. It has Argo CD 3.5.4, a pri
 
 ## Reading Order
 
-The first part covers Helm charts and how Argo CD renders them. The second part covers Kustomize bases and overlays. The third part covers repeatable rendering, secrets and how to read a rendering error. A graded lab follows the second part, and the summary closes the module.
+The first part covers Helm charts and how Argo CD renders them. The second part covers Kustomize bases and overlays. The third part covers repeatable rendering, secrets and how to read a rendering error. The fourth part covers Kustomize components and replacements and the Helm options of an Application. A graded lab follows the second part, and the summary closes the module.

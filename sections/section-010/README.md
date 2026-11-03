@@ -9,7 +9,7 @@ This section covers manifest format and packaging. A GitOps tool needs the desir
 
 It has two modules. The second covers plain manifests in a directory, Jsonnet and config management plugins, and how to choose a format and keep generated output reviewable.
 
-The first module has three reading parts and the second has four. Each has a playground, a graded lab and a summary. A capstone lab and a knowledge check close the section.
+Each module has four reading parts, a playground, a graded lab and a summary. A capstone lab and a knowledge check close the section.
 
 ## Learning Outcomes
 
