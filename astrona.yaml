@@ -126,7 +126,7 @@ modules:
         difficulty: advanced
         estimated_duration: 30m
         topic: argocd
-        task_kind: fix
+        task_kind: troubleshooting
         tags: [argocd, kustomize, overlay, patch, git, comparison-error]
         learning_goals:
           - Read a Kustomize build error and fix its cause in Git without changing the base
@@ -230,7 +230,7 @@ modules:
         difficulty: advanced
         estimated_duration: 25m
         topic: argocd
-        task_kind: fix
+        task_kind: troubleshooting
         tags: [argocd, git, revert, rollback, history, self-heal]
         learning_goals:
           - Find the bad commit in the history of the branch an Application follows
@@ -373,7 +373,7 @@ modules:
         difficulty: advanced
         estimated_duration: 25m
         topic: flux
-        task_kind: fix
+        task_kind: troubleshooting
         tags: [flux, kustomization, helmrelease, suspend, reconcile]
         learning_goals:
           - Find a paused delivery from spec.suspend and the last applied revision
@@ -477,7 +477,7 @@ modules:
         difficulty: advanced
         estimated_duration: 30m
         topic: flux
-        task_kind: fix
+        task_kind: troubleshooting
         tags: [flux, alert, notification, observability, fix-forward]
         learning_goals:
           - Read applied and attempted revisions to find a failed delivery
